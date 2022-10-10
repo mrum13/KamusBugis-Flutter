@@ -62,26 +62,26 @@ class ListPerbandinganKataAdminPage extends StatelessWidget {
                     const SizedBox(
                       height: 8,
                     ),
-                    CardItemListPerbandingan(),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    CardItemListPerbandingan(),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    CardItemListPerbandingan(),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    CardItemListPerbandingan(),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    CardItemListPerbandingan(),
-                    const SizedBox(
-                      height: 8,
-                    ),
+                    // CardItemListPerbandingan(),
+                    // const SizedBox(
+                    //   height: 8,
+                    // ),
+                    // CardItemListPerbandingan(),
+                    // const SizedBox(
+                    //   height: 8,
+                    // ),
+                    // CardItemListPerbandingan(),
+                    // const SizedBox(
+                    //   height: 8,
+                    // ),
+                    // CardItemListPerbandingan(),
+                    // const SizedBox(
+                    //   height: 8,
+                    // ),
+                    // CardItemListPerbandingan(),
+                    // const SizedBox(
+                    //   height: 8,
+                    // ),
                   ],
                 ),
               )

@@ -1,10 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kamus_bugis/cubit/list_sentence_cubit.dart';
+import 'package:kamus_bugis/cubit/list_word_cubit.dart';
+import 'package:kamus_bugis/models/list_sentence_model.dart';
 import 'package:kamus_bugis/shared/themes.dart';
 import 'package:kamus_bugis/ui/widgets/card_kalimat.dart';
 import 'package:kamus_bugis/ui/widgets/card_menu.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    context.read<ListSentenceCubit>().getListSentence();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -148,38 +164,37 @@ class HomePage extends StatelessWidget {
                 const SizedBox(
                   height: 14,
                 ),
-                CardKalimat(
-                  bugis: "Pura ki mandre ?",
-                  indo: "Kamu sudah makan ?",
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                CardKalimat(
-                  bugis: "Pura ki mandre ?",
-                  indo: "Kamu sudah makan ?",
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                CardKalimat(
-                  bugis: "Pura ki mandre ?",
-                  indo: "Kamu sudah makan ?",
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                CardKalimat(
-                  bugis: "Pura ki mandre ?",
-                  indo: "Kamu sudah makan ?",
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                CardKalimat(
-                  bugis: "Pura ki mandre ?",
-                  indo: "Kamu sudah makan ?",
-                ),
+                BlocBuilder<ListSentenceCubit, ListSentenceState>(
+                  builder: (context, state) {
+                    if (state is ListSentenceSuccess) {
+                      return Column(
+                        children:
+                            state.listSentence.map((ListSentenceModel list) {
+                          return Column(
+                            children: [
+                              CardKalimat(list),
+                              const SizedBox(
+                                height: 8,
+                              )
+                            ],
+                          );
+                        }).toList(),
+                      );
+                    } else if (state is ListSentenceLoading) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else if (state is ListSentenceFailed) {
+                      return Center(
+                        child: Text(state.error),
+                      );
+                    } else {
+                      return const Center(
+                        child: Text("Ada Kesalahan"),
+                      );
+                    }
+                  },
+                )
               ],
             ),
           ),

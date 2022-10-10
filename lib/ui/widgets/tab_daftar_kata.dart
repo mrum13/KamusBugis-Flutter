@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kamus_bugis/cubit/list_word_cubit.dart';
 import 'package:kamus_bugis/cubit/tab_daftar_kata_cubit.dart';
 import 'package:kamus_bugis/shared/themes.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,6 +19,9 @@ class TabDaftarKata extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         context.read<TabDaftarKataCubit>().setTab(index);
+        index == 0
+            ? context.read<ListWordCubit>().getListWordIndoBugis()
+            : context.read<ListWordCubit>().getListWordBugisIndo();
       },
       child: BlocBuilder<TabDaftarKataCubit, int>(
         builder: (context, state) {

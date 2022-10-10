@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:kamus_bugis/cubit/list_comparisson_cubit.dart';
 import 'package:kamus_bugis/shared/themes.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CardMenu extends StatelessWidget {
   final String title, icon;
@@ -25,6 +27,10 @@ class CardMenu extends StatelessWidget {
             break;
           case 2:
             Navigator.pushNamed(context, "perbandingan");
+        }
+
+        if (index == 2) {
+          context.read<ListComparissonCubit>().getListComparisson();
         }
       },
       child: Container(

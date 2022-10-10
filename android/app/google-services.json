@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "685628113620",
+    "project_id": "kamus-bugis-f1467",
+    "storage_bucket": "kamus-bugis-f1467.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:685628113620:android:a55d8fa5e92f62422a3141",
+        "android_client_info": {
+          "package_name": "com.example.kamus_bugis"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "685628113620-mfn5887uq1fsh5u8rpvq7n2r4q1fil3p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArFHyXWzSE6qom_kVFqG38AVykcd_Vh2o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "685628113620-mfn5887uq1fsh5u8rpvq7n2r4q1fil3p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

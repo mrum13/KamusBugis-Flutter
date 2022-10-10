@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:kamus_bugis/models/list_sentence_model.dart';
 import 'package:kamus_bugis/shared/themes.dart';
 
 class CardKalimat extends StatelessWidget {
-  final String bugis;
-  final String indo;
+  final ListSentenceModel listSentenceModel;
 
-  const CardKalimat({
+  const CardKalimat(
+    this.listSentenceModel, {
     Key? key,
-    required this.bugis,
-    required this.indo,
   }) : super(key: key);
 
   @override
@@ -23,7 +22,7 @@ class CardKalimat extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Pura ki mandre ?",
+            listSentenceModel.bugis,
             style: blackTextStyle.copyWith(
                 fontSize: 12, fontWeight: FontWeight.w600),
           ),
@@ -31,7 +30,7 @@ class CardKalimat extends StatelessWidget {
             height: 8,
           ),
           Text(
-            "Kamu sudah makan ?",
+            listSentenceModel.indonesia,
             style: blackTextStyle.copyWith(
                 fontSize: 12, fontWeight: FontWeight.w400),
           )

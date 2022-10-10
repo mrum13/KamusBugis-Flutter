@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kamus_bugis/cubit/list_sentence_cubit.dart';
+import 'package:kamus_bugis/models/list_sentence_model.dart';
 import 'package:kamus_bugis/shared/themes.dart';
 import 'package:kamus_bugis/ui/widgets/card_kalimat.dart';
 
@@ -40,40 +43,39 @@ class KalimatPage extends StatelessWidget {
             const SizedBox(
               height: 16,
             ),
-            Expanded(
-              child: ListView(
-                children: [
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  CardKalimat(
-                      bugis: "Pura ki mandre ?", indo: "Kamu sudah makan ?"),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  CardKalimat(
-                      bugis: "Pura ki mandre ?", indo: "Kamu sudah makan ?"),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  CardKalimat(
-                      bugis: "Pura ki mandre ?", indo: "Kamu sudah makan ?"),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  CardKalimat(
-                      bugis: "Pura ki mandre ?", indo: "Kamu sudah makan ?"),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  CardKalimat(
-                      bugis: "Pura ki mandre ?", indo: "Kamu sudah makan ?"),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                ],
-              ),
-            )
+            Expanded(child: BlocBuilder<ListSentenceCubit, ListSentenceState>(
+              builder: (context, state) {
+                if (state is ListSentenceLoading) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else if (state is ListSentenceFailed) {
+                  return Center(
+                    child: Text(state.error),
+                  );
+                } else if (state is ListSentenceSuccess) {
+                  return SingleChildScrollView(
+                    child: Column(
+                      children: state.listSentence
+                          .map((ListSentenceModel listSentence) {
+                        return Column(
+                          children: [
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            CardKalimat(listSentence)
+                          ],
+                        );
+                      }).toList(),
+                    ),
+                  );
+                } else {
+                  return const Center(
+                    child: Text("Ada kesalahan"),
+                  );
+                }
+              },
+            ))
           ],
         ),
       )),

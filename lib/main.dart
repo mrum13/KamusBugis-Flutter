@@ -1,5 +1,9 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kamus_bugis/cubit/list_comparisson_cubit.dart';
+import 'package:kamus_bugis/cubit/list_sentence_cubit.dart';
+import 'package:kamus_bugis/cubit/list_word_cubit.dart';
 import 'package:kamus_bugis/cubit/tab_daftar_kata_cubit.dart';
 import 'package:kamus_bugis/ui/pages/admin_pages/home_admin_page.dart';
 import 'package:kamus_bugis/ui/pages/admin_pages/list_kalimat_admin_page.dart';
@@ -16,9 +20,11 @@ import 'package:kamus_bugis/ui/pages/admin_pages/login_admin_page.dart';
 import 'package:kamus_bugis/ui/pages/perbandingan_kata_page.dart';
 import 'package:kamus_bugis/ui/pages/search_page.dart';
 import 'package:kamus_bugis/ui/pages/splash_page.dart';
-import 'package:kamus_bugis/ui/widgets/tab_daftar_kata.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   runApp(const MyApp());
 }
 
@@ -30,6 +36,9 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: ((context) => TabDaftarKataCubit())),
+        BlocProvider(create: ((context) => ListWordCubit())),
+        BlocProvider(create: ((context) => ListSentenceCubit())),
+        BlocProvider(create: ((context) => ListComparissonCubit())),
       ],
       child: MaterialApp(
         routes: {

@@ -61,31 +61,31 @@ class ListKalimatAdminPage extends StatelessWidget {
                   const SizedBox(
                     height: 8,
                   ),
-                  CardKalimat(
-                      bugis: "Pura ki mandre ?", indo: "Kamu sudah makan ?"),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  CardKalimat(
-                      bugis: "Pura ki mandre ?", indo: "Kamu sudah makan ?"),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  CardKalimat(
-                      bugis: "Pura ki mandre ?", indo: "Kamu sudah makan ?"),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  CardKalimat(
-                      bugis: "Pura ki mandre ?", indo: "Kamu sudah makan ?"),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  CardKalimat(
-                      bugis: "Pura ki mandre ?", indo: "Kamu sudah makan ?"),
-                  const SizedBox(
-                    height: 8,
-                  ),
+                  // CardKalimat(
+                  //     bugis: "Pura ki mandre ?", indo: "Kamu sudah makan ?"),
+                  // const SizedBox(
+                  //   height: 8,
+                  // ),
+                  // CardKalimat(
+                  //     bugis: "Pura ki mandre ?", indo: "Kamu sudah makan ?"),
+                  // const SizedBox(
+                  //   height: 8,
+                  // ),
+                  // CardKalimat(
+                  //     bugis: "Pura ki mandre ?", indo: "Kamu sudah makan ?"),
+                  // const SizedBox(
+                  //   height: 8,
+                  // ),
+                  // CardKalimat(
+                  //     bugis: "Pura ki mandre ?", indo: "Kamu sudah makan ?"),
+                  // const SizedBox(
+                  //   height: 8,
+                  // ),
+                  // CardKalimat(
+                  //     bugis: "Pura ki mandre ?", indo: "Kamu sudah makan ?"),
+                  // const SizedBox(
+                  //   height: 8,
+                  // ),
                 ],
               ),
             )

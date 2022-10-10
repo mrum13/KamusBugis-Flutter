@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:kamus_bugis/shared/themes.dart';
 
 class CardItemListKata extends StatelessWidget {
-  const CardItemListKata({Key? key}) : super(key: key);
+  final String indo;
+  final String bugis;
+
+  const CardItemListKata({required this.bugis, required this.indo, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +14,7 @@ class CardItemListKata extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Makan - Mandre",
+          "${indo} - ${bugis}",
           style: blackTextStyle.copyWith(
               fontSize: 14, fontWeight: FontWeight.w400),
         ),
