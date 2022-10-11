@@ -22,4 +22,23 @@ class ListWordServices {
       throw e;
     }
   }
+
+  Future<String> setWord({
+    required String bugis,
+    required String indo,
+    required String abjadBugis,
+    required String abjadIndo,
+  }) async {
+    try {
+      indoBugisCollection.doc(indo).set({
+        'Bugis': bugis,
+        'Indonesia': indo,
+        'Abjad_Bugis': abjadBugis,
+        'Abjad_Indonesia': abjadIndo,
+      });
+      return "Berhasil menambahkan kata";
+    } catch (e) {
+      throw e;
+    }
+  }
 }

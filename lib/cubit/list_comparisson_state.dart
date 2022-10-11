@@ -30,3 +30,25 @@ class ListComparissonFailed extends ListComparissonState {
   // TODO: implement props
   List<Object> get props => [error];
 }
+
+class SetComparissonLoading extends ListComparissonState {}
+
+class SetComparissonSuccess extends ListComparissonState {
+  final String message;
+
+  SetComparissonSuccess(this.message);
+
+  @override
+  // TODO: implement props
+  List<Object> get props => [message];
+}
+
+class SetComparissonFailed extends ListComparissonState {
+  final String error;
+
+  SetComparissonFailed(this.error);
+
+  @override
+  // TODO: implement props
+  List<Object> get props => [error];
+}

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kamus_bugis/cubit/list_word_cubit.dart';
 import 'package:kamus_bugis/shared/themes.dart';
 import 'package:kamus_bugis/ui/widgets/form_input_with_title.dart';
 import 'package:kamus_bugis/ui/widgets/primary_button.dart';
@@ -59,7 +61,45 @@ class TambahKataAdminPage extends StatelessWidget {
                       hint: "Masukkan kata Bahasa Bugis",
                       textInputType: TextInputType.text),
                   Expanded(child: const SizedBox()),
-                  PrimaryButton(title: "Tambah Kata", onTap: () {})
+                  BlocConsumer<ListWordCubit, ListWordState>(
+                    listener: (context, state) {
+                      if (state is SetWordFailed) {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            backgroundColor: Colors.red,
+                            content: Text(state.error)));
+                      } else if (state is SetWordSuccess) {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            backgroundColor: Colors.green,
+                            content: Text(state.message)));
+                        context.read<ListWordCubit>().getListWordIndoBugis();
+                        Navigator.pushNamed(context, 'list-kata-admin');
+                      }
+                    },
+                    builder: (context, state) {
+                      if (state is SetWordLoading) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      return PrimaryButton(
+                          title: "Tambah Kata",
+                          onTap: () {
+                            if (indoController.text == '' &&
+                                bugisController.text == '') {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      backgroundColor: Colors.red,
+                                      content: Text("Mohon lengkapi form !")));
+                            } else {
+                              context.read<ListWordCubit>().setWord(
+                                  bugis: bugisController.text.toLowerCase(),
+                                  indo: indoController.text.toLowerCase(),
+                                  abjadBugis: bugisController.text[0],
+                                  abjadIndo: indoController.text[0]);
+                            }
+                          });
+                    },
+                  )
                 ]))));
   }
 }

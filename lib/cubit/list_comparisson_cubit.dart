@@ -19,4 +19,20 @@ class ListComparissonCubit extends Cubit<ListComparissonState> {
       emit(ListComparissonFailed(e.toString()));
     }
   }
+
+  void setComparisson(
+      {required String bugisUmum,
+      required String bugisPinrang,
+      required String indo}) async {
+    try {
+      emit(SetComparissonLoading());
+
+      String message = await ListComparissonWordServices().setComparisson(
+          bugisPinrang: bugisPinrang, bugisUmum: bugisUmum, indo: indo);
+
+      emit(SetComparissonSuccess(message));
+    } catch (e) {
+      emit(SetComparissonFailed(e.toString()));
+    }
+  }
 }

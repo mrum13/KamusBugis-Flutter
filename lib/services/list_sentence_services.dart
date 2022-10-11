@@ -23,4 +23,17 @@ class ListSentenceServices {
       throw e;
     }
   }
+
+  Future<String> setSentence(
+      {required String bugis, required String indo}) async {
+    try {
+      indoBugisCollection.doc(bugis).set({
+        'Bugis': bugis,
+        'Indonesia': indo,
+      });
+      return "Berhasil menambahkan kalimat";
+    } catch (e) {
+      throw e;
+    }
+  }
 }

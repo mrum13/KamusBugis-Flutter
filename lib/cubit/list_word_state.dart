@@ -40,3 +40,25 @@ class ListWordFailed extends ListWordState {
   // TODO: implement props
   List<Object> get props => [error];
 }
+
+class SetWordLoading extends ListWordState {}
+
+class SetWordSuccess extends ListWordState {
+  final String message;
+
+  SetWordSuccess(this.message);
+
+  @override
+  // TODO: implement props
+  List<Object> get props => [message];
+}
+
+class SetWordFailed extends ListWordState {
+  final String error;
+
+  SetWordFailed(this.error);
+
+  @override
+  // TODO: implement props
+  List<Object> get props => [error];
+}

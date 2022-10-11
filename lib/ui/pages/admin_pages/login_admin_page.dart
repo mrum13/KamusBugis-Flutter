@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kamus_bugis/cubit/auth_admin_cubit.dart';
 import 'package:kamus_bugis/shared/themes.dart';
 import 'package:kamus_bugis/ui/widgets/form_input_with_title.dart';
 import 'package:kamus_bugis/ui/widgets/primary_button.dart';
@@ -14,6 +16,7 @@ class LoginAdminPage extends StatelessWidget {
         TextEditingController(text: '');
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
           child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
@@ -44,6 +47,7 @@ class LoginAdminPage extends StatelessWidget {
               height: 12,
             ),
             FormInputWithTitle(
+                obscureText: true,
                 title: "Password",
                 controller: passwordController,
                 hint: "Masukkan Password",
@@ -61,12 +65,34 @@ class LoginAdminPage extends StatelessWidget {
                     fontSize: 12, fontWeight: FontWeight.w400),
               ),
             ),
-            Expanded(child: const SizedBox()),
-            PrimaryButton(
-                title: "Masuk",
-                onTap: () {
-                  Navigator.pushNamed(context, "home-admin");
-                })
+            const Expanded(child: const SizedBox()),
+            BlocConsumer<AuthAdminCubit, AuthAdminState>(
+              listener: (context, state) {
+                if (state is AuthAdminSuccess) {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      backgroundColor: Colors.green,
+                      content: Text(state.message)));
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, 'home-admin', (route) => false);
+                } else if (state is AuthAdminFailed) {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      backgroundColor: Colors.red, content: Text(state.error)));
+                }
+              },
+              builder: (context, state) {
+                if (state is AuthAdminLoading) {
+                  return Center(child: CircularProgressIndicator());
+                }
+                return PrimaryButton(
+                    title: "Masuk",
+                    onTap: () {
+                      context.read<AuthAdminCubit>().signIn(
+                            email: emailController.text,
+                            password: passwordController.text,
+                          );
+                    });
+              },
+            )
           ],
         ),
       )),

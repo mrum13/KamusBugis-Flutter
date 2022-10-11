@@ -46,6 +46,7 @@ class DaftarKataPage extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
+                      context.read<ListWordCubit>().getListWordBugisIndo();
                       Navigator.pushNamed(context, 'search');
                     },
                     child: Image.asset(

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kamus_bugis/cubit/list_sentence_cubit.dart';
 import 'package:kamus_bugis/shared/themes.dart';
 import 'package:kamus_bugis/ui/widgets/form_input_with_title.dart';
 import 'package:kamus_bugis/ui/widgets/primary_button.dart';
@@ -59,7 +61,43 @@ class TambahKalimatAdminPage extends StatelessWidget {
                       hint: "Masukkan kalimat Bahasa Bugis",
                       textInputType: TextInputType.text),
                   Expanded(child: const SizedBox()),
-                  PrimaryButton(title: "Tambah Kalimat", onTap: () {})
+                  BlocConsumer<ListSentenceCubit, ListSentenceState>(
+                    listener: (context, state) {
+                      if (state is SetSentenceFailed) {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            backgroundColor: Colors.red,
+                            content: Text(state.error)));
+                      } else if (state is SetSentenceSuccess) {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            backgroundColor: Colors.green,
+                            content: Text(state.message)));
+                        context.read<ListSentenceCubit>().getListSentence();
+                        Navigator.pushNamed(context, 'list-kalimat-admin');
+                      }
+                    },
+                    builder: (context, state) {
+                      if (state is SetSentenceLoading) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      return PrimaryButton(
+                          title: "Tambah Kalimat",
+                          onTap: () {
+                            if (indoController.text == '' &&
+                                bugisController.text == '') {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      backgroundColor: Colors.red,
+                                      content: Text("Mohon lengkapi form !")));
+                            } else {
+                              context.read<ListSentenceCubit>().setSentence(
+                                  bugis: bugisController.text,
+                                  indo: indoController.text);
+                            }
+                          });
+                    },
+                  )
                 ]))));
   }
 }

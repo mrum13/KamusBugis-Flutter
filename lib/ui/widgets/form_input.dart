@@ -5,18 +5,21 @@ class FormInput extends StatelessWidget {
   final TextEditingController controller;
   final TextInputType textInputType;
   final String hint;
+  final bool obscureText;
 
   const FormInput({
     Key? key,
     required this.controller,
     required this.textInputType,
     required this.hint,
+    required this.obscureText,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       enabled: true,
+      obscureText: obscureText,
       scrollPadding:
           EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       maxLines: 1,

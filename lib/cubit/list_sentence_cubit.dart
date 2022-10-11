@@ -19,4 +19,17 @@ class ListSentenceCubit extends Cubit<ListSentenceState> {
       emit(ListSentenceFailed(e.toString()));
     }
   }
+
+  void setSentence({required String bugis, required String indo}) async {
+    try {
+      emit(SetSentenceLoading());
+
+      String message =
+          await ListSentenceServices().setSentence(bugis: bugis, indo: indo);
+
+      emit(SetSentenceSuccess(message));
+    } catch (e) {
+      emit(SetSentenceFailed(e.toString()));
+    }
+  }
 }

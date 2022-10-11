@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:kamus_bugis/shared/themes.dart';
 
-class CardItemListKata extends StatelessWidget {
+class CardItemListKataSearchIndo extends StatelessWidget {
   final String indo;
   final String bugis;
 
-  const CardItemListKata({required this.bugis, required this.indo, Key? key})
+  const CardItemListKataSearchIndo(
+      {required this.bugis, required this.indo, Key? key})
       : super(key: key);
 
   @override

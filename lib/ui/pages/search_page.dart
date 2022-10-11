@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:kamus_bugis/cubit/list_word_cubit.dart';
 import 'package:kamus_bugis/models/list_word_model.dart';
 import 'package:kamus_bugis/shared/themes.dart';
-import 'package:kamus_bugis/ui/widgets/card_item_list_kata.dart';
+import 'package:kamus_bugis/ui/widgets/card_item_list_kata_search_bugis.dart';
+import 'package:kamus_bugis/ui/widgets/card_item_list_kata_search_indo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SearchPage extends StatefulWidget {
@@ -23,11 +24,11 @@ class _SearchPageState extends State<SearchPage> {
     'Bahasa Bugis',
   ];
 
+  final TextEditingController searchController =
+      TextEditingController(text: '');
+
   @override
   Widget build(BuildContext context) {
-    final TextEditingController searchController =
-        TextEditingController(text: '');
-
     return Scaffold(
       body: SafeArea(
           child: Padding(
@@ -94,6 +95,7 @@ class _SearchPageState extends State<SearchPage> {
             TextFormField(
               onFieldSubmitted: (String str) {
                 setState(() {
+                  searchController.text = str;
                   textSearch = str;
                 });
               },
@@ -142,6 +144,7 @@ class _SearchPageState extends State<SearchPage> {
                     child: Text(state.error),
                   );
                 } else if (state is ListWordIndoSuccess) {
+                  //binnary search function
                   int binarySearch(List<String> arr, String x) {
                     int l = 0, r = arr.length - 1;
                     while (l <= r) {
@@ -165,7 +168,7 @@ class _SearchPageState extends State<SearchPage> {
                   }
 
                   if (textSearch == "") {
-                    return SizedBox();
+                    return const SizedBox();
                   } else {
                     List<String> listWord =
                         state.listWordModel.map((e) => e.indonesia).toList();
@@ -177,18 +180,55 @@ class _SearchPageState extends State<SearchPage> {
                         child: Text("Data tidak ada"),
                       );
                     } else {
-                      return CardItemListKata(
+                      return CardItemListKataSearchIndo(
                         bugis: state.listWordModel.elementAt(result).bugis,
                         indo: state.listWordModel.elementAt(result).indonesia,
                       );
                     }
                   }
                 } else if (state is ListWordBugisSuccess) {
-                  List<ListWordModel> listWord = state.listWordModel;
+                  //binnary search function
+                  int binarySearch(List<String> arr, String x) {
+                    int l = 0, r = arr.length - 1;
+                    while (l <= r) {
+                      double m = l + (r - l) / 2;
 
-                  print(listWord);
+                      int res = x.compareTo(arr[m.round()]);
 
-                  return SizedBox();
+                      // Check if x is present at mid
+                      if (res == 0) return m.round();
+
+                      // If x greater, ignore left half
+                      if (res > 0)
+                        l = m.round() + 1;
+
+                      // If x is smaller, ignore right half
+                      else
+                        r = m.round() - 1;
+                    }
+
+                    return -1;
+                  }
+
+                  if (textSearch == "") {
+                    return const SizedBox();
+                  } else {
+                    List<String> listWord =
+                        state.listWordModel.map((e) => e.bugis).toList();
+                    String valueString = textSearch;
+                    int result = binarySearch(listWord, valueString);
+
+                    if (result == -1) {
+                      return const Center(
+                        child: Text("Data tidak ada"),
+                      );
+                    } else {
+                      return CardItemListKataSearchBugis(
+                        bugis: state.listWordModel.elementAt(result).bugis,
+                        indo: state.listWordModel.elementAt(result).indonesia,
+                      );
+                    }
+                  }
                 } else {
                   return const Center(
                     child: Text("Ada Kesalahan"),

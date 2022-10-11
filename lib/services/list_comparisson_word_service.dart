@@ -21,4 +21,20 @@ class ListComparissonWordServices {
       throw e;
     }
   }
+
+  Future<String> setComparisson(
+      {required String bugisUmum,
+      required String bugisPinrang,
+      required String indo}) async {
+    try {
+      comparissonWordCollection.doc(indo).set({
+        'Bugis_Pinrang': bugisPinrang,
+        'Bugis_Umum': bugisUmum,
+        'Indonesia': indo,
+      });
+      return "Berhasil menambahkan perbandingan kata";
+    } catch (e) {
+      throw e;
+    }
+  }
 }

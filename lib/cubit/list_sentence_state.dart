@@ -30,3 +30,25 @@ class ListSentenceFailed extends ListSentenceState {
   // TODO: implement props
   List<Object> get props => [error];
 }
+
+class SetSentenceLoading extends ListSentenceState {}
+
+class SetSentenceSuccess extends ListSentenceState {
+  final String message;
+
+  SetSentenceSuccess(this.message);
+
+  @override
+  // TODO: implement props
+  List<Object> get props => [message];
+}
+
+class SetSentenceFailed extends ListSentenceState {
+  final String error;
+
+  SetSentenceFailed(this.error);
+
+  @override
+  // TODO: implement props
+  List<Object> get props => [error];
+}

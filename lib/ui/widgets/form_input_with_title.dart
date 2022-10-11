@@ -6,6 +6,7 @@ class FormInputWithTitle extends StatelessWidget {
   final String hint, title;
   final TextEditingController controller;
   final TextInputType textInputType;
+  final bool obscureText;
 
   const FormInputWithTitle({
     Key? key,
@@ -13,6 +14,7 @@ class FormInputWithTitle extends StatelessWidget {
     required this.controller,
     required this.hint,
     required this.textInputType,
+    this.obscureText = false,
   }) : super(key: key);
 
   @override
@@ -29,7 +31,10 @@ class FormInputWithTitle extends StatelessWidget {
           height: 4,
         ),
         FormInput(
-            controller: controller, textInputType: textInputType, hint: hint)
+            obscureText: obscureText,
+            controller: controller,
+            textInputType: textInputType,
+            hint: hint)
       ],
     );
   }

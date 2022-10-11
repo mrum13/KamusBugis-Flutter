@@ -31,4 +31,24 @@ class ListWordCubit extends Cubit<ListWordState> {
       emit(ListWordFailed(e.toString()));
     }
   }
+
+  void setWord(
+      {required String bugis,
+      required String indo,
+      required String abjadBugis,
+      required String abjadIndo}) async {
+    try {
+      emit(SetWordLoading());
+
+      String message = await ListWordServices().setWord(
+          bugis: bugis,
+          indo: indo,
+          abjadBugis: abjadBugis,
+          abjadIndo: abjadIndo);
+
+      emit(SetWordSuccess(message));
+    } catch (e) {
+      emit(SetWordFailed(e.toString()));
+    }
+  }
 }

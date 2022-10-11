@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:kamus_bugis/cubit/list_comparisson_cubit.dart';
+import 'package:kamus_bugis/cubit/list_sentence_cubit.dart';
+import 'package:kamus_bugis/cubit/list_word_cubit.dart';
 import 'package:kamus_bugis/shared/themes.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CardHomeAdmin extends StatelessWidget {
   final String title, image;
@@ -25,6 +29,14 @@ class CardHomeAdmin extends StatelessWidget {
             break;
           case 2:
             Navigator.pushNamed(context, "list-kalimat-admin");
+        }
+
+        if (index == 0) {
+          context.read<ListWordCubit>().getListWordIndoBugis();
+        } else if (index == 1) {
+          context.read<ListComparissonCubit>().getListComparisson();
+        } else if (index == 2) {
+          context.read<ListSentenceCubit>().getListSentence();
         }
       },
       child: Container(

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kamus_bugis/cubit/list_comparisson_cubit.dart';
+import 'package:kamus_bugis/models/list_comparisson_word_model.dart';
 import 'package:kamus_bugis/shared/themes.dart';
 import 'package:kamus_bugis/ui/widgets/card_item_list_perbandingan.dart';
 
@@ -56,35 +59,38 @@ class ListPerbandinganKataAdminPage extends StatelessWidget {
               const SizedBox(
                 height: 16,
               ),
-              Expanded(
-                child: ListView(
-                  children: [
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    // CardItemListPerbandingan(),
-                    // const SizedBox(
-                    //   height: 8,
-                    // ),
-                    // CardItemListPerbandingan(),
-                    // const SizedBox(
-                    //   height: 8,
-                    // ),
-                    // CardItemListPerbandingan(),
-                    // const SizedBox(
-                    //   height: 8,
-                    // ),
-                    // CardItemListPerbandingan(),
-                    // const SizedBox(
-                    //   height: 8,
-                    // ),
-                    // CardItemListPerbandingan(),
-                    // const SizedBox(
-                    //   height: 8,
-                    // ),
-                  ],
-                ),
-              )
+              Expanded(child:
+                  BlocBuilder<ListComparissonCubit, ListComparissonState>(
+                builder: (context, state) {
+                  if (state is ListComparissonLoading) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (state is ListComparissonFailed) {
+                    return Center(
+                      child: Text(state.error),
+                    );
+                  } else if (state is ListComparissonSuccess) {
+                    return Column(
+                      children: state.listComparisson
+                          .map((ListComparissonModel listComparisson) {
+                        return Column(
+                          children: [
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            CardItemListPerbandingan(listComparisson)
+                          ],
+                        );
+                      }).toList(),
+                    );
+                  } else {
+                    return const Center(
+                      child: Text("Ada kesalahan"),
+                    );
+                  }
+                },
+              ))
             ],
           ),
         ),

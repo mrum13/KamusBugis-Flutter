@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kamus_bugis/cubit/auth_admin_cubit.dart';
 import 'package:kamus_bugis/cubit/list_comparisson_cubit.dart';
 import 'package:kamus_bugis/cubit/list_sentence_cubit.dart';
 import 'package:kamus_bugis/cubit/list_word_cubit.dart';
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: ((context) => ListWordCubit())),
         BlocProvider(create: ((context) => ListSentenceCubit())),
         BlocProvider(create: ((context) => ListComparissonCubit())),
+        BlocProvider(create: ((context) => AuthAdminCubit())),
       ],
       child: MaterialApp(
         routes: {
