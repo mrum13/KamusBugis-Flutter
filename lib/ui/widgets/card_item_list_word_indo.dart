@@ -3,9 +3,14 @@ import 'package:kamus_bugis/models/list_word_model.dart';
 import 'package:kamus_bugis/shared/themes.dart';
 
 class CardItemListWordIndo extends StatelessWidget {
-  final ListWordModel listWordModel;
+  final String indo;
+  final String bugis;
 
-  const CardItemListWordIndo(this.listWordModel, {Key? key}) : super(key: key);
+  const CardItemListWordIndo({
+    Key? key,
+    required this.bugis,
+    required this.indo,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +20,7 @@ class CardItemListWordIndo extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Text(
-            listWordModel.indonesia,
+            indo,
             style: blackTextStyle.copyWith(
                 fontSize: 14, fontWeight: FontWeight.w400),
           ),
@@ -31,7 +36,7 @@ class CardItemListWordIndo extends StatelessWidget {
             width: 4,
           ),
           Text(
-            listWordModel.bugis,
+            bugis,
             style: blackTextStyle.copyWith(
                 fontSize: 14, fontWeight: FontWeight.w300),
           ),

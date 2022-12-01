@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:grouped_list/grouped_list.dart';
 import 'package:kamus_bugis/cubit/list_word_cubit.dart';
 import 'package:kamus_bugis/models/list_word_model.dart';
 import 'package:kamus_bugis/shared/themes.dart';
@@ -103,23 +104,63 @@ class ListKataAdminPage extends StatelessWidget {
                     } else if (state is ListWordFailed) {
                       return Center(child: Text(state.error));
                     } else if (state is ListWordIndoSuccess) {
-                      return SingleChildScrollView(
-                          scrollDirection: Axis.vertical,
-                          child: Column(
-                            children: state.listWordModel
-                                .map((ListWordModel listWord) {
-                              return CardItemListWordIndo(listWord);
-                            }).toList(),
-                          ));
+                      return GroupedListView<dynamic, String>(
+                        elements: state.listWordModel,
+                        groupBy: (e) => e["Abjad_Indonesia"],
+                        order: GroupedListOrder.ASC,
+                        useStickyGroupSeparators: true,
+                        groupSeparatorBuilder: (String value) => Container(
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          width: double.infinity,
+                          color: kWhiteColor,
+                          child: Text(
+                            value,
+                            style: const TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        itemBuilder: (c, element) {
+                          return Column(
+                            children: [
+                              CardItemListWordIndo(
+                                  bugis: element["Bugis"],
+                                  indo: element["Indonesia"]),
+                              const SizedBox(
+                                height: 16,
+                              )
+                            ],
+                          );
+                        },
+                      );
                     } else if (state is ListWordBugisSuccess) {
-                      return SingleChildScrollView(
-                          scrollDirection: Axis.vertical,
-                          child: Column(
-                            children: state.listWordModel
-                                .map((ListWordModel listWord) {
-                              return CardItemListWordBugis(listWord);
-                            }).toList(),
-                          ));
+                      return GroupedListView<dynamic, String>(
+                        elements: state.listWordModel,
+                        groupBy: (e) => e["Abjad_Bugis"],
+                        order: GroupedListOrder.ASC,
+                        useStickyGroupSeparators: true,
+                        groupSeparatorBuilder: (String value) => Container(
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          width: double.infinity,
+                          color: kWhiteColor,
+                          child: Text(
+                            value,
+                            style: const TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        itemBuilder: (c, element) {
+                          return Column(
+                            children: [
+                              CardItemListWordBugis(
+                                  bugis: element["Bugis"],
+                                  indo: element["Indonesia"]),
+                              const SizedBox(
+                                height: 16,
+                              )
+                            ],
+                          );
+                        },
+                      );
                     } else {
                       return const Text("Ada Kesalahan");
                     }

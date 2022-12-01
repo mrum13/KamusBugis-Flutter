@@ -74,7 +74,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    context.read<ListWordCubit>().getListWordBugisIndo();
+                    context.read<ListWordCubit>().getListWordIndoBugis();
                     Navigator.pushNamed(context, "search");
                   },
                   child: Container(

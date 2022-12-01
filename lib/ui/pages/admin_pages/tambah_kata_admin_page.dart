@@ -94,8 +94,10 @@ class TambahKataAdminPage extends StatelessWidget {
                               context.read<ListWordCubit>().setWord(
                                   bugis: bugisController.text.toLowerCase(),
                                   indo: indoController.text.toLowerCase(),
-                                  abjadBugis: bugisController.text[0],
-                                  abjadIndo: indoController.text[0]);
+                                  abjadBugis:
+                                      bugisController.text[0].toUpperCase(),
+                                  abjadIndo:
+                                      indoController.text[0].toUpperCase());
                             }
                           });
                     },

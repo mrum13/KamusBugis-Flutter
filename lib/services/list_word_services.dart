@@ -5,19 +5,19 @@ class ListWordServices {
   CollectionReference indoBugisCollection =
       FirebaseFirestore.instance.collection('list_kata_indo_bugis');
 
-  Future<List<ListWordModel>> fetchListWordIndoBugis() async {
+  Future<List> fetchListWordIndoBugis() async {
     try {
       QuerySnapshot result = await indoBugisCollection.get();
 
       List listnya = result.docs.map((e) {
-        return e.id;
+        return e.data();
       }).toList();
 
       List<ListWordModel> listWord = result.docs.map((e) {
         return ListWordModel.fromJson(e.id, e.data() as Map<String, dynamic>);
       }).toList();
 
-      return listWord;
+      return listnya;
     } catch (e) {
       throw e;
     }

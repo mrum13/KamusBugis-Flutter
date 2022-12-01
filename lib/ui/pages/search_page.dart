@@ -145,12 +145,19 @@ class _SearchPageState extends State<SearchPage> {
                   );
                 } else if (state is ListWordIndoSuccess) {
                   //binnary search function
-                  int binarySearch(List<String> arr, String x) {
+                  int binarySearch(List arr, String x) {
                     int l = 0, r = arr.length - 1;
-                    while (l <= r) {
+                    print("left nya list=${arr}");
+
+                    print("compare isi ada apa=${"ada".compareTo("apa")}");
+                    print("compare isi apa ada=${"apa".compareTo("ada")}");
+
+                    while (l < r) {
                       double m = l + (r - l) / 2;
 
                       int res = x.compareTo(arr[m.round()]);
+
+                      print("left nya=${l} | r nya=${r} | res nya=${res} |");
 
                       // Check if x is present at mid
                       if (res == 0) return m.round();
@@ -160,8 +167,7 @@ class _SearchPageState extends State<SearchPage> {
                         l = m.round() + 1;
 
                       // If x is smaller, ignore right half
-                      else
-                        r = m.round() - 1;
+                      else if (res < 0) r = m.round() - 1;
                     }
 
                     return -1;
@@ -170,10 +176,10 @@ class _SearchPageState extends State<SearchPage> {
                   if (textSearch == "") {
                     return const SizedBox();
                   } else {
-                    List<String> listWord =
-                        state.listWordModel.map((e) => e.indonesia).toList();
                     String valueString = textSearch;
-                    int result = binarySearch(listWord, valueString);
+                    List listIndo =
+                        state.listWordModel.map((e) => e["Indonesia"]).toList();
+                    int result = binarySearch(listIndo, valueString);
 
                     if (result == -1) {
                       return const Center(
@@ -181,14 +187,15 @@ class _SearchPageState extends State<SearchPage> {
                       );
                     } else {
                       return CardItemListKataSearchIndo(
-                        bugis: state.listWordModel.elementAt(result).bugis,
-                        indo: state.listWordModel.elementAt(result).indonesia,
+                        bugis: state.listWordModel.elementAt(result)["Bugis"],
+                        indo:
+                            state.listWordModel.elementAt(result)["Indonesia"],
                       );
                     }
                   }
                 } else if (state is ListWordBugisSuccess) {
                   //binnary search function
-                  int binarySearch(List<String> arr, String x) {
+                  int binarySearch(List arr, String x) {
                     int l = 0, r = arr.length - 1;
                     while (l <= r) {
                       double m = l + (r - l) / 2;
@@ -213,8 +220,8 @@ class _SearchPageState extends State<SearchPage> {
                   if (textSearch == "") {
                     return const SizedBox();
                   } else {
-                    List<String> listWord =
-                        state.listWordModel.map((e) => e.bugis).toList();
+                    List listWord =
+                        state.listWordModel.map((e) => e["Bugis"]).toList();
                     String valueString = textSearch;
                     int result = binarySearch(listWord, valueString);
 
@@ -224,8 +231,9 @@ class _SearchPageState extends State<SearchPage> {
                       );
                     } else {
                       return CardItemListKataSearchBugis(
-                        bugis: state.listWordModel.elementAt(result).bugis,
-                        indo: state.listWordModel.elementAt(result).indonesia,
+                        bugis: state.listWordModel.elementAt(result)["Bugis"],
+                        indo:
+                            state.listWordModel.elementAt(result)["Indonesia"],
                       );
                     }
                   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kamus_bugis/cubit/list_comparisson_cubit.dart';
+import 'package:kamus_bugis/cubit/list_word_cubit.dart';
 import 'package:kamus_bugis/shared/themes.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,7 +21,10 @@ class CardMenu extends StatelessWidget {
       onTap: () {
         switch (index) {
           case 0:
-            Navigator.pushNamed(context, "daftar-kata");
+            {
+              context.read<ListWordCubit>().getListWordIndoBugis();
+              Navigator.pushNamed(context, "daftar-kata");
+            }
             break;
           case 1:
             Navigator.pushNamed(context, "kalimat");
