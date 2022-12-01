@@ -108,7 +108,7 @@ class _SearchPageState extends State<SearchPage> {
               decoration: InputDecoration(
                   filled: true,
                   prefixIconConstraints:
-                      BoxConstraints(maxWidth: 40, maxHeight: 44),
+                      const BoxConstraints(maxWidth: 40, maxHeight: 44),
                   prefixIcon: IconButton(
                       icon: Image.asset(
                         "assets/icon_search.png",
@@ -146,28 +146,28 @@ class _SearchPageState extends State<SearchPage> {
                 } else if (state is ListWordIndoSuccess) {
                   //binnary search function
                   int binarySearch(List arr, String x) {
+                    //x = value(kata) yang dicari
+                    //arr = list data
+                    //l = nilai awal
+                    //r = banyaknya data dalam list
+                    //res = hasil=0 jika value didapat, hasil=1 jika value berada dibawah, hasil=-1 jika value berada diatas
+                    //m = nilai tengah
+
                     int l = 0, r = arr.length - 1;
-                    print("left nya list=${arr}");
 
-                    print("compare isi ada apa=${"ada".compareTo("apa")}");
-                    print("compare isi apa ada=${"apa".compareTo("ada")}");
-
-                    while (l < r) {
+                    while (l <= r) {
                       double m = l + (r - l) / 2;
 
                       int res = x.compareTo(arr[m.round()]);
-
-                      print("left nya=${l} | r nya=${r} | res nya=${res} |");
 
                       // Check if x is present at mid
                       if (res == 0) return m.round();
 
                       // If x greater, ignore left half
-                      if (res > 0)
-                        l = m.round() + 1;
+                      if (res > 0) l = m.round() + 1;
 
                       // If x is smaller, ignore right half
-                      else if (res < 0) r = m.round() - 1;
+                      if (res < 0) r = m.round() - 1;
                     }
 
                     return -1;
@@ -179,6 +179,13 @@ class _SearchPageState extends State<SearchPage> {
                     String valueString = textSearch;
                     List listIndo =
                         state.listWordModel.map((e) => e["Indonesia"]).toList();
+                    List listIndoBugis = state.listWordModel
+                        .map((e) => "${e["Indonesia"]}|${e["Bugis"]}")
+                        .toList();
+
+                    listIndo.sort();
+                    listIndoBugis.sort();
+
                     int result = binarySearch(listIndo, valueString);
 
                     if (result == -1) {
@@ -186,17 +193,27 @@ class _SearchPageState extends State<SearchPage> {
                         child: Text("Data tidak ada"),
                       );
                     } else {
+                      var bugis = listIndoBugis.elementAt(result);
+                      bugis.split('|').sublist(1).join(':').trim();
+
                       return CardItemListKataSearchIndo(
-                        bugis: state.listWordModel.elementAt(result)["Bugis"],
-                        indo:
-                            state.listWordModel.elementAt(result)["Indonesia"],
+                        bugis: bugis.split('|').sublist(1).join(':').trim(),
+                        indo: listIndo.elementAt(result),
                       );
                     }
                   }
                 } else if (state is ListWordBugisSuccess) {
                   //binnary search function
                   int binarySearch(List arr, String x) {
+                    //x = value(kata) yang dicari
+                    //arr = list data
+                    //l = nilai awal
+                    //r = banyaknya data dalam list
+                    //res = hasil=0 jika value didapat, hasil=1 jika value berada dibawah, hasil=-1 jika value berada diatas
+                    //m = nilai tengah
+
                     int l = 0, r = arr.length - 1;
+
                     while (l <= r) {
                       double m = l + (r - l) / 2;
 
@@ -206,12 +223,10 @@ class _SearchPageState extends State<SearchPage> {
                       if (res == 0) return m.round();
 
                       // If x greater, ignore left half
-                      if (res > 0)
-                        l = m.round() + 1;
+                      if (res > 0) l = m.round() + 1;
 
                       // If x is smaller, ignore right half
-                      else
-                        r = m.round() - 1;
+                      if (res < 0) r = m.round() - 1;
                     }
 
                     return -1;
@@ -220,21 +235,29 @@ class _SearchPageState extends State<SearchPage> {
                   if (textSearch == "") {
                     return const SizedBox();
                   } else {
-                    List listWord =
-                        state.listWordModel.map((e) => e["Bugis"]).toList();
                     String valueString = textSearch;
-                    int result = binarySearch(listWord, valueString);
+                    List listBugis =
+                        state.listWordModel.map((e) => e["Bugis"]).toList();
+                    List listBugisIndo = state.listWordModel
+                        .map((e) => "${e["Bugis"]}|${e["Indonesia"]}")
+                        .toList();
+
+                    listBugis.sort();
+                    listBugisIndo.sort();
+
+                    int result = binarySearch(listBugis, valueString);
 
                     if (result == -1) {
                       return const Center(
                         child: Text("Data tidak ada"),
                       );
                     } else {
+                      var indo = listBugisIndo.elementAt(result);
+                      indo.split('|').sublist(1).join(':').trim();
+
                       return CardItemListKataSearchBugis(
-                        bugis: state.listWordModel.elementAt(result)["Bugis"],
-                        indo:
-                            state.listWordModel.elementAt(result)["Indonesia"],
-                      );
+                          bugis: listBugis.elementAt(result),
+                          indo: indo.split('|').sublist(1).join(':').trim());
                     }
                   }
                 } else {
