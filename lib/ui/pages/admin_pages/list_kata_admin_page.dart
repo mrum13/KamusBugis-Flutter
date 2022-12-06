@@ -27,7 +27,7 @@ class ListKataAdminPage extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          Navigator.pop(context);
+                          Navigator.pushNamed(context, "home-admin");
                         },
                         child: Image.asset(
                           "assets/icon_arrow_back.png",
@@ -50,7 +50,6 @@ class ListKataAdminPage extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          context.read<ListWordCubit>().getListWordBugisIndo();
                           Navigator.pushNamed(context, "tambah-kata-admin");
                         },
                         child: Image.asset(

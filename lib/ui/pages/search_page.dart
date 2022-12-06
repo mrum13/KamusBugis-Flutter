@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:kamus_bugis/cubit/list_word_cubit.dart';
-import 'package:kamus_bugis/models/list_word_model.dart';
 import 'package:kamus_bugis/shared/themes.dart';
 import 'package:kamus_bugis/ui/widgets/card_item_list_kata_search_bugis.dart';
 import 'package:kamus_bugis/ui/widgets/card_item_list_kata_search_indo.dart';

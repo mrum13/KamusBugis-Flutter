@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kamus_bugis/cubit/list_word_cubit.dart';
+import 'package:kamus_bugis/cubit/tab_daftar_kata_cubit.dart';
 import 'package:kamus_bugis/shared/themes.dart';
 import 'package:kamus_bugis/ui/widgets/form_input_with_title.dart';
 import 'package:kamus_bugis/ui/widgets/primary_button.dart';
@@ -25,7 +26,9 @@ class TambahKataAdminPage extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          Navigator.pop(context);
+                          Navigator.pushNamed(context, "list-kata-admin");
+                          context.read<TabDaftarKataCubit>().setTab(0);
+                          context.read<ListWordCubit>().getListWordIndoBugis();
                         },
                         child: Image.asset(
                           "assets/icon_arrow_back.png",
@@ -68,11 +71,13 @@ class TambahKataAdminPage extends StatelessWidget {
                             backgroundColor: Colors.red,
                             content: Text(state.error)));
                       } else if (state is SetWordSuccess) {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            backgroundColor: Colors.green,
-                            content: Text(state.message)));
+                        // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        //     duration: const Duration(seconds: 2),
+                        //     backgroundColor: Colors.green,
+                        //     content: Text(state.message)));
+                        Navigator.pushNamed(context, "list-kata-admin");
+                        context.read<TabDaftarKataCubit>().setTab(0);
                         context.read<ListWordCubit>().getListWordIndoBugis();
-                        Navigator.pushNamed(context, 'list-kata-admin');
                       }
                     },
                     builder: (context, state) {

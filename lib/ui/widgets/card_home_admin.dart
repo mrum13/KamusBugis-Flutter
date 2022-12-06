@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kamus_bugis/cubit/list_comparisson_cubit.dart';
 import 'package:kamus_bugis/cubit/list_sentence_cubit.dart';
 import 'package:kamus_bugis/cubit/list_word_cubit.dart';
+import 'package:kamus_bugis/cubit/tab_daftar_kata_cubit.dart';
 import 'package:kamus_bugis/shared/themes.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -22,7 +23,11 @@ class CardHomeAdmin extends StatelessWidget {
       onTap: () {
         switch (index) {
           case 0:
-            Navigator.pushNamed(context, "list-kata-admin");
+            {
+              context.read<TabDaftarKataCubit>().setTab(0);
+              Navigator.pushNamed(context, "list-kata-admin");
+            }
+
             break;
           case 1:
             Navigator.pushNamed(context, "list-perbandingan-admin");

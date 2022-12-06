@@ -71,18 +71,20 @@ class ListPerbandinganKataAdminPage extends StatelessWidget {
                       child: Text(state.error),
                     );
                   } else if (state is ListComparissonSuccess) {
-                    return Column(
-                      children: state.listComparisson
-                          .map((ListComparissonModel listComparisson) {
-                        return Column(
-                          children: [
-                            const SizedBox(
-                              height: 8,
-                            ),
-                            CardItemListPerbandingan(listComparisson)
-                          ],
-                        );
-                      }).toList(),
+                    return SingleChildScrollView(
+                      child: Column(
+                        children: state.listComparisson
+                            .map((ListComparissonModel listComparisson) {
+                          return Column(
+                            children: [
+                              const SizedBox(
+                                height: 8,
+                              ),
+                              CardItemListPerbandingan(listComparisson)
+                            ],
+                          );
+                        }).toList(),
+                      ),
                     );
                   } else {
                     return const Center(
