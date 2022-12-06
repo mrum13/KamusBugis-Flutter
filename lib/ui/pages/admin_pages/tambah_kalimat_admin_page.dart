@@ -25,7 +25,7 @@ class TambahKalimatAdminPage extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          Navigator.pop(context);
+                          Navigator.pushNamed(context, "list-kalimat-admin");
                         },
                         child: Image.asset(
                           "assets/icon_arrow_back.png",

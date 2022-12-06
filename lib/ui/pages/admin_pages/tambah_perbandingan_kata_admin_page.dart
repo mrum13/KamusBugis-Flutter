@@ -28,7 +28,8 @@ class TambahPerbandinganKataAdminPage extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          Navigator.pop(context);
+                          Navigator.pushNamed(
+                              context, "list-perbandingan-admin");
                         },
                         child: Image.asset(
                           "assets/icon_arrow_back.png",
