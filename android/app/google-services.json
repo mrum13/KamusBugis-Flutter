@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:685628113620:android:a55d8fa5e92f62422a3141",
+        "mobilesdk_app_id": "1:685628113620:android:05a5a69cc9ff74e62a3141",
         "android_client_info": {
-          "package_name": "com.example.kamus_bugis"
+          "package_name": "com.rum.kamus.bugis"
         }
       },
       "oauth_client": [

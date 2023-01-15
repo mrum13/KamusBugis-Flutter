@@ -1,4 +1,4 @@
-package com.example.kamus_bugis
+package com.rum.kamus.bugis
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,6 +1,5 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:kamus_bugis/models/list_word_model.dart';
 import 'package:kamus_bugis/services/list_word_services.dart';
 
 part 'list_word_state.dart';
