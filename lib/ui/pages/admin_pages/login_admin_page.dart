@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kamus_bugis/cubit/auth_admin_cubit.dart';
+import 'package:kamus_bugis/cubit/list_comparisson_cubit.dart';
+import 'package:kamus_bugis/cubit/list_sentence_cubit.dart';
+import 'package:kamus_bugis/cubit/list_word_cubit.dart';
+import 'package:kamus_bugis/services/list_sentence_services.dart';
 import 'package:kamus_bugis/shared/themes.dart';
 import 'package:kamus_bugis/ui/widgets/form_input_with_title.dart';
 import 'package:kamus_bugis/ui/widgets/primary_button.dart';
@@ -72,6 +76,7 @@ class LoginAdminPage extends StatelessWidget {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       backgroundColor: Colors.green,
                       content: Text(state.message)));
+
                   Navigator.pushNamedAndRemoveUntil(
                       context, 'home-admin', (route) => false);
                 } else if (state is AuthAdminFailed) {

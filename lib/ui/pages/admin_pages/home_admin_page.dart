@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:kamus_bugis/cubit/list_comparisson_cubit.dart';
+import 'package:kamus_bugis/cubit/list_sentence_cubit.dart';
+import 'package:kamus_bugis/cubit/list_word_cubit.dart';
 import 'package:kamus_bugis/shared/themes.dart';
 import 'package:kamus_bugis/ui/widgets/card_home_admin.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomeAdminPage extends StatelessWidget {
+class HomeAdminPage extends StatefulWidget {
   const HomeAdminPage({Key? key}) : super(key: key);
 
   @override
+  State<HomeAdminPage> createState() => _HomeAdminPageState();
+}
+
+class _HomeAdminPageState extends State<HomeAdminPage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    context.read<ListWordCubit>().getListWordIndoBugis();
+    context.read<ListSentenceCubit>().getListSentence();
+    context.read<ListComparissonCubit>().getListComparisson();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    String lengthWord = "0";
+    String lengthSentence = "0";
+    String lengthCompare = "0";
+
     return Scaffold(
       body: SafeArea(
           child: Padding(
@@ -61,26 +83,62 @@ class HomeAdminPage extends StatelessWidget {
               const SizedBox(
                 height: 14,
               ),
-              CardHomeAdmin(
-                image: "assets/icon_daftar_kata.png",
-                index: 0,
-                title: "Tambah Daftar Kata",
+              BlocBuilder<ListWordCubit, ListWordState>(
+                builder: (context, state) {
+                  if (state is ListWordIndoSuccess) {
+                    lengthWord = state.listWordModel.length.toString();
+                  } else if (state is ListWordLoading) {
+                    lengthWord = "-";
+                  } else if (state is ListWordFailed) {
+                    lengthWord = "e";
+                  }
+                  return CardHomeAdmin(
+                    length: lengthWord,
+                    image: "assets/icon_daftar_kata.png",
+                    index: 0,
+                    title: "Tambah Daftar Kata",
+                  );
+                },
               ),
               const SizedBox(
                 height: 24,
               ),
-              CardHomeAdmin(
-                image: "assets/icon_perbandingan kata.png",
-                index: 1,
-                title: "Tambah Perbandingan Kata",
+              BlocBuilder<ListComparissonCubit, ListComparissonState>(
+                builder: (context, state) {
+                  if (state is ListComparissonSuccess) {
+                    lengthCompare = state.listComparisson.length.toString();
+                  } else if (state is ListComparissonLoading) {
+                    lengthCompare = "-";
+                  } else if (state is ListComparissonFailed) {
+                    lengthCompare = "e";
+                  }
+                  return CardHomeAdmin(
+                    length: lengthCompare,
+                    image: "assets/icon_perbandingan kata.png",
+                    index: 1,
+                    title: "Tambah Perbandingan Kata",
+                  );
+                },
               ),
               const SizedBox(
                 height: 24,
               ),
-              CardHomeAdmin(
-                image: "assets/icon_kalimat.png",
-                index: 2,
-                title: "Tambah Kalimat",
+              BlocBuilder<ListSentenceCubit, ListSentenceState>(
+                builder: (context, state) {
+                  if (state is ListSentenceSuccess) {
+                    lengthSentence = state.listSentence.length.toString();
+                  } else if (state is ListSentenceLoading) {
+                    lengthSentence = "-";
+                  } else if (state is ListSentenceFailed) {
+                    lengthSentence = "e";
+                  }
+                  return CardHomeAdmin(
+                    length: lengthSentence,
+                    image: "assets/icon_kalimat.png",
+                    index: 2,
+                    title: "Tambah Kalimat",
+                  );
+                },
               ),
               const SizedBox(
                 height: 24,

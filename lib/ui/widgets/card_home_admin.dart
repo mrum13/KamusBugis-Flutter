@@ -7,15 +7,16 @@ import 'package:kamus_bugis/shared/themes.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CardHomeAdmin extends StatelessWidget {
-  final String title, image;
+  final String title, image, length;
   final int index;
 
-  const CardHomeAdmin({
-    Key? key,
-    required this.index,
-    required this.image,
-    required this.title,
-  }) : super(key: key);
+  const CardHomeAdmin(
+      {Key? key,
+      required this.index,
+      required this.image,
+      required this.title,
+      required this.length})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +60,7 @@ class CardHomeAdmin extends StatelessWidget {
               width: 64,
             ),
             const SizedBox(
-              width: 14,
+              width: 8,
             ),
             Expanded(
               child: Text(
@@ -67,6 +68,14 @@ class CardHomeAdmin extends StatelessWidget {
                 style: blackTextStyle.copyWith(
                     fontSize: 18, fontWeight: FontWeight.w400),
               ),
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            Text(
+              length,
+              style: blackTextStyle.copyWith(
+                  fontSize: 18, fontWeight: FontWeight.w700),
             ),
           ],
         ),
