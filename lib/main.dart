@@ -43,6 +43,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: ((context) => AuthAdminCubit())),
       ],
       child: MaterialApp(
+        initialRoute: 'home',
         routes: {
           '/': (context) => const SplashPage(),
           'home': (context) => const HomePage(),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kamus_bugis/cubit/list_sentence_cubit.dart';
 import 'package:kamus_bugis/cubit/list_word_cubit.dart';
@@ -37,10 +38,15 @@ class _HomePageState extends State<HomePage> {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Image.asset(
-                      "assets/icon_logo.png",
-                      height: 100,
-                      width: 100,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, "login-admin");
+                      },
+                      child: Image.asset(
+                        "assets/icon_logo.png",
+                        height: 100,
+                        width: 100,
+                      ),
                     ),
                     const SizedBox(
                       width: 15,
@@ -51,20 +57,23 @@ class _HomePageState extends State<HomePage> {
                       style: blackTextStyle.copyWith(
                           fontSize: 16, fontWeight: FontWeight.w400),
                     )),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.pushNamed(context, "info");
-                          },
-                          child: Image.asset(
-                            "assets/icon_info.png",
-                            height: 24,
-                            width: 24,
-                          ),
-                        )
-                      ],
+                    Visibility(
+                      visible: false,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(context, "info");
+                            },
+                            child: Image.asset(
+                              "assets/icon_info.png",
+                              height: 24,
+                              width: 24,
+                            ),
+                          )
+                        ],
+                      ),
                     )
                   ],
                 ),
@@ -169,8 +178,9 @@ class _HomePageState extends State<HomePage> {
                   builder: (context, state) {
                     if (state is ListSentenceSuccess) {
                       return Column(
-                        children:
-                            state.listSentence.map((ListSentenceModel list) {
+                        children: state.listSentence
+                            .take(3)
+                            .map((ListSentenceModel list) {
                           return Column(
                             children: [
                               CardKalimat(list),

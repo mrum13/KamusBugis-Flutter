@@ -16,30 +16,43 @@ class CardItemListWordIndo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+      child: Column(
         children: [
-          Text(
-            indo,
-            style: blackTextStyle.copyWith(
-                fontSize: 14, fontWeight: FontWeight.w400),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                indo,
+                style: blackTextStyle.copyWith(
+                    fontSize: 14, fontWeight: FontWeight.w400),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    bugis,
+                    style: blackTextStyle.copyWith(
+                        fontSize: 14, fontWeight: FontWeight.w400),
+                  ),
+                  const SizedBox(
+                    height: 4,
+                  ),
+                  Text(bugis,
+                      style: TextStyle(
+                          fontFamily: 'Lontara',
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: kBlackColor)),
+                ],
+              ),
+            ],
           ),
-          const SizedBox(
-            width: 4,
-          ),
-          Text(
-            "-",
-            style: blackTextStyle.copyWith(
-                fontSize: 14, fontWeight: FontWeight.w300),
-          ),
-          const SizedBox(
-            width: 4,
-          ),
-          Text(
-            bugis,
-            style: blackTextStyle.copyWith(
-                fontSize: 14, fontWeight: FontWeight.w300),
-          ),
+          Container(
+            margin: const EdgeInsets.only(top: 8),
+            width: double.infinity,
+            height: 0.5,
+            color: kGreyColor,
+          )
         ],
       ),
     );

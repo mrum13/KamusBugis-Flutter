@@ -29,6 +29,15 @@ class CardKalimat extends StatelessWidget {
           const SizedBox(
             height: 8,
           ),
+          Text(listSentenceModel.bugis.toLowerCase(),
+              style: TextStyle(
+                  fontFamily: 'Lontara',
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: kBlackColor)),
+          const SizedBox(
+            height: 8,
+          ),
           Text(
             listSentenceModel.indonesia,
             style: blackTextStyle.copyWith(

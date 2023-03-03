@@ -34,16 +34,19 @@ class SplashPage extends StatelessWidget {
                   const SizedBox(
                     height: 24,
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, "login-admin");
-                    },
-                    child: Text(
-                      "Masuk sebagai admin",
-                      style: blackTextStyle.copyWith(
-                          decoration: TextDecoration.underline,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400),
+                  Visibility(
+                    visible: false,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, "login-admin");
+                      },
+                      child: Text(
+                        "Masuk sebagai admin",
+                        style: blackTextStyle.copyWith(
+                            decoration: TextDecoration.underline,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400),
+                      ),
                     ),
                   )
                 ],

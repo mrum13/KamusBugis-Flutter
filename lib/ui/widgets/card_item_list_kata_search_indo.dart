@@ -14,10 +14,34 @@ class CardItemListKataSearchIndo extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          "${indo} - ${bugis}",
-          style: blackTextStyle.copyWith(
-              fontSize: 14, fontWeight: FontWeight.w400),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              "${indo}",
+              style: blackTextStyle.copyWith(
+                  fontSize: 14, fontWeight: FontWeight.w400),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  bugis,
+                  style: blackTextStyle.copyWith(
+                      fontSize: 14, fontWeight: FontWeight.w400),
+                ),
+                const SizedBox(
+                  height: 4,
+                ),
+                Text(bugis,
+                    style: TextStyle(
+                        fontFamily: 'Lontara',
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: kBlackColor)),
+              ],
+            ),
+          ],
         ),
         const SizedBox(
           height: 8,

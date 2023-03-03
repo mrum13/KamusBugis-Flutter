@@ -39,6 +39,24 @@ class CardItemListPerbandingan extends StatelessWidget {
             style: blackTextStyle.copyWith(
                 fontSize: 12, fontWeight: FontWeight.w400),
           ),
+          const SizedBox(
+            height: 4,
+          ),
+          Row(
+            children: [
+              Text(
+                "Lontara Bugis : ",
+                style: blackTextStyle.copyWith(
+                    fontSize: 12, fontWeight: FontWeight.w400),
+              ),
+              Text("${listComparisson.bugisUmum}",
+                  style: TextStyle(
+                      fontFamily: 'Lontara',
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: kBlackColor)),
+            ],
+          ),
         ],
       ),
     );

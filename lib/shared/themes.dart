@@ -11,3 +11,4 @@ TextStyle blackTextStyle = GoogleFonts.poppins(color: kBlackColor);
 TextStyle primaryTextStyle = GoogleFonts.poppins(color: kPrimaryColor);
 TextStyle whiteTextStyle = GoogleFonts.poppins(color: kWhiteColor);
 TextStyle greyTextStyle = GoogleFonts.poppins(color: kGreyColor);
+// TextStyle lontaraStyle = Lontara(col);
