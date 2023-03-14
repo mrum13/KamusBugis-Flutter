@@ -14,6 +14,21 @@ class CardItemListWordIndo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String str = bugis;
+    String doubleWord = '';
+
+    for (int i = 0; i < str.length - 1; i++) {
+      if (str[i] == str[i + 1]) {
+        doubleWord = str[i] + str[i + 1];
+        break;
+      }
+    }
+
+    String firstWordBugis = bugis.substring(0, 1);
+    String secondWordBugis = bugis.substring(1).replaceAll("a", "");
+
+    String combineWordBugis = firstWordBugis + secondWordBugis;
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -37,7 +52,11 @@ class CardItemListWordIndo extends StatelessWidget {
                   const SizedBox(
                     height: 4,
                   ),
-                  Text(bugis,
+                  Text(
+                      doubleWord == ""
+                          ? combineWordBugis
+                          : combineWordBugis.replaceAll(
+                              doubleWord, doubleWord[0]),
                       style: TextStyle(
                           fontFamily: 'Lontara',
                           fontSize: 14,

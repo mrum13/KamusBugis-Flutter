@@ -12,6 +12,22 @@ class CardKalimat extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String str = listSentenceModel.bugis;
+    String doubleWord = '';
+
+    for (int i = 0; i < str.length - 1; i++) {
+      if (str[i] == str[i + 1]) {
+        doubleWord = str[i] + str[i + 1];
+        break;
+      }
+    }
+
+    String firstWordBugis = listSentenceModel.bugis.substring(0, 1);
+    String secondWordBugis =
+        listSentenceModel.bugis.substring(1).replaceAll("a", "");
+
+    String combineWordBugis = firstWordBugis + secondWordBugis;
+
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(12),
@@ -29,7 +45,12 @@ class CardKalimat extends StatelessWidget {
           const SizedBox(
             height: 8,
           ),
-          Text(listSentenceModel.bugis.toLowerCase(),
+          Text(
+              doubleWord == ""
+                  ? combineWordBugis.toLowerCase()
+                  : combineWordBugis
+                      .replaceAll(doubleWord, doubleWord[0])
+                      .toLowerCase(),
               style: TextStyle(
                   fontFamily: 'Lontara',
                   fontSize: 14,

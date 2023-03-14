@@ -143,15 +143,9 @@ class _SearchPageState extends State<SearchPage> {
                     child: Text(state.error),
                   );
                 } else if (state is ListWordIndoSuccess) {
+                  print("total kata indo = ${state.listWordModel.length}");
                   //binnary search function
                   int binarySearch(List arr, String x) {
-                    //x = value(kata) yang dicari
-                    //arr = list data
-                    //l = nilai awal
-                    //r = banyaknya data dalam list
-                    //res = hasil=0 jika value didapat, hasil=1 jika value berada dibawah, hasil=-1 jika value berada diatas
-                    //m = nilai tengah
-
                     int l = 0, r = arr.length - 1;
 
                     while (l <= r) {
@@ -179,11 +173,13 @@ class _SearchPageState extends State<SearchPage> {
                     List listIndo =
                         state.listWordModel.map((e) => e["Indonesia"]).toList();
                     List listIndoBugis = state.listWordModel
-                        .map((e) => "${e["Indonesia"]}|${e["Bugis"]}")
+                        .map((e) => "${e["Indonesia"]} |${e["Bugis"]}")
                         .toList();
 
                     listIndo.sort();
                     listIndoBugis.sort();
+
+                    print("kata dicari : ${listIndoBugis}");
 
                     int result = binarySearch(listIndo, valueString);
 
@@ -202,15 +198,9 @@ class _SearchPageState extends State<SearchPage> {
                     }
                   }
                 } else if (state is ListWordBugisSuccess) {
+                  print("List kata bugis = ${state.listWordModel.asMap()}");
                   //binnary search function
                   int binarySearch(List arr, String x) {
-                    //x = value(kata) yang dicari
-                    //arr = list data
-                    //l = nilai awal
-                    //r = banyaknya data dalam list
-                    //res = hasil=0 jika value didapat, hasil=1 jika value berada dibawah, hasil=-1 jika value berada diatas
-                    //m = nilai tengah
-
                     int l = 0, r = arr.length - 1;
 
                     while (l <= r) {
@@ -238,7 +228,7 @@ class _SearchPageState extends State<SearchPage> {
                     List listBugis =
                         state.listWordModel.map((e) => e["Bugis"]).toList();
                     List listBugisIndo = state.listWordModel
-                        .map((e) => "${e["Bugis"]}|${e["Indonesia"]}")
+                        .map((e) => "${e["Bugis"]} |${e["Indonesia"]}")
                         .toList();
 
                     listBugis.sort();
