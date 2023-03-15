@@ -25,7 +25,40 @@ class CardItemListWordBugis extends StatelessWidget {
     }
 
     String firstWordBugis = bugis.substring(0, 1);
-    String secondWordBugis = bugis.substring(1).replaceAll("a", "");
+    String secondWordBugis = bugis
+        .replaceAll("nca", "C")
+        .replaceAll("nci", "Ci")
+        .replaceAll("ncu", "Cu")
+        .replaceAll("nce", "Ce")
+        .replaceAll("nco", "Co")
+        .replaceAll("nga", "G")
+        .replaceAll("ngi", "Gi")
+        .replaceAll("ngu", "u")
+        .replaceAll("nge", "Ge")
+        .replaceAll("ngo", "Go")
+        .replaceAll("nra", "R")
+        .replaceAll("nri", "Ri")
+        .replaceAll("nru", "Ru")
+        .replaceAll("nre", "Re")
+        .replaceAll("nro", "Ro")
+        .replaceAll("mpa", "P")
+        .replaceAll("mpi", "Pi")
+        .replaceAll("mpu", "Pu")
+        .replaceAll("mpe", "Pe")
+        .replaceAll("mpo", "Po")
+        .replaceAll("ngka", "K")
+        .replaceAll("ngki", "Ki")
+        .replaceAll("ngku", "Ku")
+        .replaceAll("ngke", "Ke")
+        .replaceAll("ngko", "Ko")
+        .replaceAll("nya", "N")
+        .replaceAll("nyi", "Ni")
+        .replaceAll("nyu", "Nu")
+        .replaceAll("nye", "Ne")
+        .replaceAll("nyo", "No")
+        .substring(1)
+        .replaceAll(RegExp("(?<![aeiou])[aA](?![eaiou])"), "")
+        .replaceAll("ng", "");
 
     String combineWordBugis = firstWordBugis + secondWordBugis;
 
