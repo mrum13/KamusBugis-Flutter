@@ -41,6 +41,14 @@
 </head>
 <body>
   <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('flutter-first-frame', function () {
+        navigator.serviceWorker.register('flutter_service_worker.js?v=2330050811');
+      });
+    }
+  </script>
+  <script src="main.dart.js" type="application/javascript"></script>
+  <script>
     window.addEventListener('load', function(ev) {
       // Download main.dart.js
       _flutter.loader.loadEntrypoint({
@@ -53,6 +61,25 @@
         return appRunner.runApp();
       });
     });
+  </script>
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyC1d728l-Wh_b2lB2nawqb_GBx8_RSpOzM",
+      authDomain: "kamus-bugis-f1467.firebaseapp.com",
+      projectId: "kamus-bugis-f1467",
+      storageBucket: "kamus-bugis-f1467.appspot.com",
+      messagingSenderId: "685628113620",
+      appId: "1:685628113620:web:f814b8bc24a24b3b2a3141"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
   </script>
 </body>
 </html>

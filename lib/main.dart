@@ -21,10 +21,13 @@ import 'package:kamus_bugis/ui/pages/admin_pages/login_admin_page.dart';
 import 'package:kamus_bugis/ui/pages/perbandingan_kata_page.dart';
 import 'package:kamus_bugis/ui/pages/search_page.dart';
 import 'package:kamus_bugis/ui/pages/splash_page.dart';
+import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   runApp(const MyApp());
 }
