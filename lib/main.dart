@@ -6,6 +6,7 @@ import 'package:kamus_bugis/cubit/list_comparisson_cubit.dart';
 import 'package:kamus_bugis/cubit/list_sentence_cubit.dart';
 import 'package:kamus_bugis/cubit/list_word_cubit.dart';
 import 'package:kamus_bugis/cubit/tab_daftar_kata_cubit.dart';
+import 'package:kamus_bugis/cubit/tab_daftar_kata_second_cubit.dart';
 import 'package:kamus_bugis/ui/pages/admin_pages/home_admin_page.dart';
 import 'package:kamus_bugis/ui/pages/admin_pages/list_kalimat_admin_page.dart';
 import 'package:kamus_bugis/ui/pages/admin_pages/list_kata_admin_page.dart';
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: ((context) => ListSentenceCubit())),
         BlocProvider(create: ((context) => ListComparissonCubit())),
         BlocProvider(create: ((context) => AuthAdminCubit())),
+        BlocProvider(create: ((context) => TabDaftarKataSecondCubit())),
       ],
       child: MaterialApp(
         initialRoute: 'home',

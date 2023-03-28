@@ -71,13 +71,13 @@ class TambahKataAdminPage extends StatelessWidget {
                             backgroundColor: Colors.red,
                             content: Text(state.error)));
                       } else if (state is SetWordSuccess) {
-                        // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        //     duration: const Duration(seconds: 2),
-                        //     backgroundColor: Colors.green,
-                        //     content: Text(state.message)));
-                        Navigator.pushNamed(context, "list-kata-admin");
-                        context.read<TabDaftarKataCubit>().setTab(0);
-                        context.read<ListWordCubit>().getListWordIndoBugis();
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            duration: const Duration(seconds: 1),
+                            backgroundColor: Colors.green,
+                            content: Text("Berhasil tambah kata")));
+                        // Navigator.pushNamed(context, "list-kata-admin");
+                        // context.read<TabDaftarKataCubit>().setTab(0);
+                        // context.read<ListWordCubit>().getListWordIndoBugis();
                       }
                     },
                     builder: (context, state) {

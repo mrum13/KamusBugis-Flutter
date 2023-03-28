@@ -21,10 +21,7 @@ class CardMenu extends StatelessWidget {
       onTap: () {
         switch (index) {
           case 0:
-            {
-              context.read<ListWordCubit>().getListWordIndoBugis();
-              Navigator.pushNamed(context, "daftar-kata");
-            }
+            Navigator.pushNamed(context, "daftar-kata");
             break;
           case 1:
             Navigator.pushNamed(context, "kalimat");

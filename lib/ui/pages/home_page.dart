@@ -20,6 +20,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     // TODO: implement initState
     context.read<ListSentenceCubit>().getListSentence();
+    context.read<ListWordCubit>().getListWordIndoBugis();
     super.initState();
   }
 

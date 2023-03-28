@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:kamus_bugis/cubit/list_word_cubit.dart';
+import 'package:kamus_bugis/cubit/tab_daftar_kata_second_cubit.dart';
 import 'package:kamus_bugis/models/list_word_model.dart';
 import 'package:kamus_bugis/shared/themes.dart';
 import 'package:kamus_bugis/ui/widgets/card_item_list_word_bugis.dart';
@@ -95,6 +96,77 @@ class ListKataAdminPage extends StatelessWidget {
                   ],
                 ),
               ),
+              // Expanded(
+              //   child: BlocBuilder<TabDaftarKataSecondCubit, bool>(
+              //     builder: (context, state) {
+              //       if (state) {
+              //         return const Center(child: CircularProgressIndicator());
+              //       } else if (state is ListWordFailed) {
+              //         return Center(child: Text(state.error));
+              //       } else if (state is ListWordIndoSuccess) {
+              //         return GroupedListView<dynamic, String>(
+              //           elements: state.listWordModel,
+              //           groupBy: (e) => e["Abjad_Indonesia"],
+              //           order: GroupedListOrder.ASC,
+              //           useStickyGroupSeparators: true,
+              //           groupSeparatorBuilder: (String value) => Container(
+              //             padding: const EdgeInsets.symmetric(vertical: 16),
+              //             width: double.infinity,
+              //             color: kWhiteColor,
+              //             child: Text(
+              //               value,
+              //               style: const TextStyle(
+              //                   fontSize: 20, fontWeight: FontWeight.bold),
+              //             ),
+              //           ),
+              //           itemBuilder: (c, element) {
+              //             return Column(
+              //               children: [
+              //                 CardItemListWordIndo(
+              //                     bugis: element["Bugis"],
+              //                     indo: element["Indonesia"]),
+              //                 const SizedBox(
+              //                   height: 16,
+              //                 )
+              //               ],
+              //             );
+              //           },
+              //         );
+              //       } else if (state is ListWordBugisSuccess) {
+              //         return GroupedListView<dynamic, String>(
+              //           elements: state.listWordModel,
+              //           groupBy: (e) => e["Abjad_Bugis"],
+              //           order: GroupedListOrder.ASC,
+              //           useStickyGroupSeparators: true,
+              //           groupSeparatorBuilder: (String value) => Container(
+              //             padding: const EdgeInsets.symmetric(vertical: 16),
+              //             width: double.infinity,
+              //             color: kWhiteColor,
+              //             child: Text(
+              //               value,
+              //               style: const TextStyle(
+              //                   fontSize: 20, fontWeight: FontWeight.bold),
+              //             ),
+              //           ),
+              //           itemBuilder: (c, element) {
+              //             return Column(
+              //               children: [
+              //                 CardItemListWordBugis(
+              //                     bugis: element["Bugis"],
+              //                     indo: element["Indonesia"]),
+              //                 const SizedBox(
+              //                   height: 16,
+              //                 )
+              //               ],
+              //             );
+              //           },
+              //         );
+              //       } else {
+              //         return const Text("Ada Kesalahan");
+              //       }
+              //     },
+              //   ),
+              // )
               Expanded(
                 child: BlocBuilder<ListWordCubit, ListWordState>(
                   builder: (context, state) {
