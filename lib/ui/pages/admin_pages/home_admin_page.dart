@@ -99,6 +99,16 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                     } else {
                       lengthWord = "0";
                     }
+                  } else if (state is CheckListWordBugisLocalSuccess) {
+                    if (state.status == "Data Exist") {
+                      List listWord = [];
+                      var myMap = listWordDataBox.toMap().values.toList();
+                      listWord = myMap;
+
+                      lengthWord = listWord.length.toString();
+                    } else {
+                      lengthWord = "0";
+                    }
                   } else if (state is ListWordLoading) {
                     lengthWord = "-";
                   } else if (state is ListWordFailed) {
@@ -172,6 +182,45 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
               const SizedBox(
                 height: 24,
               ),
+              BlocConsumer<ListWordCubit, ListWordState>(
+                listener: (context, state) {
+                  // TODO: implement listener
+                  if (state is ListWordBugisSuccess) {
+                    context
+                        .read<CheckSentenceLocalCubit>()
+                        .checkSentenceLocal();
+                    context
+                        .read<CheckCompareWordLocalCubit>()
+                        .checkCompareWordLocal();
+                    context
+                        .read<CheckListWordLocalCubit>()
+                        .checkListWordBugisLocal();
+                    context
+                        .read<CheckListWordLocalCubit>()
+                        .checkListWordIndoLocal();
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        backgroundColor: Colors.green,
+                        content: Text("Data berhasil di Update")));
+                  } else if (state is ListWordFailed) {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        backgroundColor: Colors.red,
+                        content: Text("Gagal update Data !")));
+                  }
+                },
+                builder: (context, state) {
+                  if (state is ListWordLoading) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  return CardHomeAdmin(
+                    length: "",
+                    image: "assets/icon_refresh.png",
+                    index: 3,
+                    title: "Update Data",
+                  );
+                },
+              )
             ],
           ),
         ),

@@ -75,9 +75,6 @@ class TambahKataAdminPage extends StatelessWidget {
                             duration: const Duration(seconds: 1),
                             backgroundColor: Colors.green,
                             content: Text("Berhasil tambah kata")));
-                        // Navigator.pushNamed(context, "list-kata-admin");
-                        // context.read<TabDaftarKataCubit>().setTab(0);
-                        // context.read<ListWordCubit>().getListWordIndoBugis();
                       }
                     },
                     builder: (context, state) {

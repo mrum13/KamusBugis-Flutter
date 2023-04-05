@@ -83,10 +83,6 @@ class TambahPerbandinganKataAdminPage extends StatelessWidget {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             backgroundColor: Colors.green,
                             content: Text(state.message)));
-                        context
-                            .read<ListComparissonCubit>()
-                            .getListComparisson();
-                        Navigator.pushNamed(context, 'list-perbandingan-admin');
                       }
                     },
                     builder: (context, state) {

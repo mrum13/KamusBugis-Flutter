@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kamus_bugis/cubit/check_list_word_local_cubit.dart';
 import 'package:kamus_bugis/cubit/list_comparisson_cubit.dart';
 import 'package:kamus_bugis/cubit/list_sentence_cubit.dart';
 import 'package:kamus_bugis/cubit/list_word_cubit.dart';
@@ -26,6 +27,7 @@ class CardHomeAdmin extends StatelessWidget {
           case 0:
             {
               context.read<TabDaftarKataCubit>().setTab(0);
+              context.read<CheckListWordLocalCubit>().checkListWordIndoLocal();
               Navigator.pushNamed(context, "list-kata-admin");
             }
 
@@ -35,6 +37,14 @@ class CardHomeAdmin extends StatelessWidget {
             break;
           case 2:
             Navigator.pushNamed(context, "list-kalimat-admin");
+            break;
+          case 3:
+            {
+              context.read<ListWordCubit>().getListWordBugisIndo();
+              context.read<ListWordCubit>().getListWordIndoBugis();
+              context.read<ListSentenceCubit>().getListSentence();
+              context.read<ListComparissonCubit>().getListComparisson();
+            }
         }
 
         if (index == 0) {
