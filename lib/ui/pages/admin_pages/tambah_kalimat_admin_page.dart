@@ -71,7 +71,7 @@ class TambahKalimatAdminPage extends StatelessWidget {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             backgroundColor: Colors.green,
                             content: Text(state.message)));
-                        context.read<ListSentenceCubit>().getListSentence();
+                        // context.read<ListSentenceCubit>().getListSentence();
                         Navigator.pushNamed(context, 'list-kalimat-admin');
                       }
                     },

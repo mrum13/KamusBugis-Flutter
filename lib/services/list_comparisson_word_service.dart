@@ -1,24 +1,48 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:kamus_bugis/models/list_comparisson_word_model.dart';
+import 'package:hive/hive.dart';
+import 'package:kamus_bugis/main.dart';
 
 class ListComparissonWordServices {
   CollectionReference comparissonWordCollection =
       FirebaseFirestore.instance.collection('list_perbandingan_kata');
 
-  Future<List<ListComparissonModel>> fetchComparissonWord() async {
+  Future<bool> fetchComparissonWord() async {
     try {
       QuerySnapshot result = await comparissonWordCollection.get();
 
-      List<ListComparissonModel> listComparisson = result.docs.map((e) {
-        return ListComparissonModel.fromJson(
-            e.id, e.data() as Map<String, dynamic>);
+      List listnya = result.docs.map((e) {
+        return e.data();
       }).toList();
 
-      print(listComparisson);
+      // List<ListComparissonModel> listComparisson = result.docs.map((e) {
+      //   return ListComparissonModel.fromJson(
+      //       e.id, e.data() as Map<String, dynamic>);
+      // }).toList();
 
-      return listComparisson;
+      putListComparissonWordDataToHive(listnya);
+
+      return true;
     } catch (e) {
       throw e;
+    }
+  }
+
+  Future<Box> putListComparissonWordDataToHive(data) async {
+    await compareWordDataBox.clear();
+
+    for (var d in data) {
+      compareWordDataBox.add(d);
+    }
+
+    return compareWordDataBox;
+  }
+
+  Future<String> checkListComparissonWordData() async {
+    var myData = compareWordDataBox.values;
+    if (myData.isEmpty) {
+      return "Data Empty";
+    } else {
+      return "Data Exist";
     }
   }
 

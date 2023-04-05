@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:kamus_bugis/cubit/check_compare_word_local_cubit.dart';
+import 'package:kamus_bugis/cubit/check_list_word_local_cubit.dart';
+import 'package:kamus_bugis/cubit/check_sentence_local_cubit.dart';
 import 'package:kamus_bugis/cubit/list_comparisson_cubit.dart';
 import 'package:kamus_bugis/cubit/list_sentence_cubit.dart';
 import 'package:kamus_bugis/cubit/list_word_cubit.dart';
+import 'package:kamus_bugis/main.dart';
 import 'package:kamus_bugis/shared/themes.dart';
 import 'package:kamus_bugis/ui/widgets/card_home_admin.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,9 +22,9 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    context.read<ListWordCubit>().getListWordIndoBugis();
-    context.read<ListSentenceCubit>().getListSentence();
-    context.read<ListComparissonCubit>().getListComparisson();
+    // context.read<ListWordCubit>().getListWordIndoBugis();
+    // context.read<ListSentenceCubit>().getListSentence();
+    // context.read<ListComparissonCubit>().getListComparisson();
   }
 
   @override
@@ -83,10 +87,18 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
               const SizedBox(
                 height: 14,
               ),
-              BlocBuilder<ListWordCubit, ListWordState>(
+              BlocBuilder<CheckListWordLocalCubit, CheckListWordLocalState>(
                 builder: (context, state) {
-                  if (state is ListWordIndoSuccess) {
-                    lengthWord = state.listWordModel.length.toString();
+                  if (state is CheckListWordIndoLocalSuccess) {
+                    if (state.status == "Data Exist") {
+                      List listWord = [];
+                      var myMap = listWordDataBox.toMap().values.toList();
+                      listWord = myMap;
+
+                      lengthWord = listWord.length.toString();
+                    } else {
+                      lengthWord = "0";
+                    }
                   } else if (state is ListWordLoading) {
                     lengthWord = "-";
                   } else if (state is ListWordFailed) {
@@ -103,13 +115,22 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
               const SizedBox(
                 height: 24,
               ),
-              BlocBuilder<ListComparissonCubit, ListComparissonState>(
+              BlocBuilder<CheckCompareWordLocalCubit,
+                  CheckCompareWordLocalState>(
                 builder: (context, state) {
-                  if (state is ListComparissonSuccess) {
-                    lengthCompare = state.listComparisson.length.toString();
-                  } else if (state is ListComparissonLoading) {
+                  if (state is CheckCompareWordLocalSuccess) {
+                    if (state.status == "Data Exist") {
+                      List listCompareWord = [];
+                      var myMap = compareWordDataBox.toMap().values.toList();
+                      listCompareWord = myMap;
+
+                      lengthCompare = listCompareWord.length.toString();
+                    } else {
+                      lengthCompare = "0";
+                    }
+                  } else if (state is CheckCompareWordLocalLoading) {
                     lengthCompare = "-";
-                  } else if (state is ListComparissonFailed) {
+                  } else if (state is CheckCompareWordLocalFailed) {
                     lengthCompare = "e";
                   }
                   return CardHomeAdmin(
@@ -123,13 +144,21 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
               const SizedBox(
                 height: 24,
               ),
-              BlocBuilder<ListSentenceCubit, ListSentenceState>(
+              BlocBuilder<CheckSentenceLocalCubit, CheckSentenceLocalState>(
                 builder: (context, state) {
-                  if (state is ListSentenceSuccess) {
-                    lengthSentence = state.listSentence.length.toString();
-                  } else if (state is ListSentenceLoading) {
+                  if (state is CheckSentenceLocalSuccess) {
+                    if (state.status == "Data Exist") {
+                      List listSentence = [];
+                      var myMap = sentenceDataBox.toMap().values.toList();
+                      listSentence = myMap;
+
+                      lengthSentence = listSentence.length.toString();
+                    } else {
+                      lengthSentence = "0";
+                    }
+                  } else if (state is CheckSentenceLocalLoading) {
                     lengthSentence = "-";
-                  } else if (state is ListSentenceFailed) {
+                  } else if (state is CheckSentenceLocalFailed) {
                     lengthSentence = "e";
                   }
                   return CardHomeAdmin(

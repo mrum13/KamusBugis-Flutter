@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kamus_bugis/cubit/check_list_word_local_cubit.dart';
 import 'package:kamus_bugis/cubit/list_comparisson_cubit.dart';
 import 'package:kamus_bugis/cubit/list_word_cubit.dart';
 import 'package:kamus_bugis/shared/themes.dart';
@@ -30,8 +31,8 @@ class CardMenu extends StatelessWidget {
             Navigator.pushNamed(context, "perbandingan");
         }
 
-        if (index == 2) {
-          context.read<ListComparissonCubit>().getListComparisson();
+        if (index == 0) {
+          context.read<CheckListWordLocalCubit>().checkListWordIndoLocal();
         }
       },
       child: Container(

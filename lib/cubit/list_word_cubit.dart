@@ -11,7 +11,7 @@ class ListWordCubit extends Cubit<ListWordState> {
     try {
       emit(ListWordLoading());
 
-      List listWord = await ListWordServices().fetchListWordIndoBugis();
+      bool listWord = await ListWordServices().fetchListWordIndoBugis();
 
       emit(ListWordIndoSuccess(listWord));
     } catch (e) {
@@ -23,9 +23,7 @@ class ListWordCubit extends Cubit<ListWordState> {
     try {
       emit(ListWordLoading());
 
-      List listWord = await ListWordServices().fetchListWordIndoBugis();
-
-      listWord;
+      bool listWord = await ListWordServices().fetchListWordIndoBugis();
 
       emit(ListWordBugisSuccess(listWord));
     } catch (e) {

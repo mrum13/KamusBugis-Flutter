@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:kamus_bugis/models/list_comparisson_word_model.dart';
+import 'package:kamus_bugis/models/list_comparisson_word.dart';
 import 'package:kamus_bugis/services/list_comparisson_word_service.dart';
 
 part 'list_comparisson_state.dart';
@@ -12,7 +12,7 @@ class ListComparissonCubit extends Cubit<ListComparissonState> {
     try {
       emit(ListComparissonLoading());
 
-      List<ListComparissonModel> listComparisson =
+      bool listComparisson =
           await ListComparissonWordServices().fetchComparissonWord();
       emit(ListComparissonSuccess(listComparisson));
     } catch (e) {

@@ -12,7 +12,7 @@ class ListComparissonInitial extends ListComparissonState {}
 class ListComparissonLoading extends ListComparissonState {}
 
 class ListComparissonSuccess extends ListComparissonState {
-  final List<ListComparissonModel> listComparisson;
+  final bool listComparisson;
 
   ListComparissonSuccess(this.listComparisson);
 

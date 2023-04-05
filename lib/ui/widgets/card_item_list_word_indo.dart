@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kamus_bugis/models/list_word_model.dart';
+import 'package:kamus_bugis/models/list_word.dart';
 import 'package:kamus_bugis/shared/themes.dart';
 
 class CardItemListWordIndo extends StatelessWidget {

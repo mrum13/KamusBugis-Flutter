@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kamus_bugis/cubit/check_compare_word_local_cubit.dart';
 import 'package:kamus_bugis/cubit/list_comparisson_cubit.dart';
-import 'package:kamus_bugis/models/list_comparisson_word_model.dart';
+import 'package:kamus_bugis/main.dart';
+import 'package:kamus_bugis/models/list_comparisson_word.dart';
 import 'package:kamus_bugis/shared/themes.dart';
 import 'package:kamus_bugis/ui/widgets/card_item_list_perbandingan.dart';
 
@@ -59,33 +61,99 @@ class ListPerbandinganKataAdminPage extends StatelessWidget {
               const SizedBox(
                 height: 16,
               ),
-              Expanded(child:
-                  BlocBuilder<ListComparissonCubit, ListComparissonState>(
+              Expanded(child: BlocBuilder<CheckCompareWordLocalCubit,
+                  CheckCompareWordLocalState>(
                 builder: (context, state) {
-                  if (state is ListComparissonLoading) {
+                  if (state is CheckCompareWordLocalLoading) {
                     return const Center(
                       child: CircularProgressIndicator(),
                     );
-                  } else if (state is ListComparissonFailed) {
+                  } else if (state is CheckCompareWordLocalFailed) {
                     return Center(
                       child: Text(state.error),
                     );
-                  } else if (state is ListComparissonSuccess) {
-                    return SingleChildScrollView(
-                      child: Column(
-                        children: state.listComparisson
-                            .map((ListComparissonModel listComparisson) {
-                          return Column(
-                            children: [
-                              const SizedBox(
+                  } else if (state is CheckCompareWordLocalSuccess) {
+                    if (state.status == "Data Exist") {
+                      List listCompareWord = [];
+                      var myMap = compareWordDataBox.toMap().values.toList();
+                      listCompareWord = myMap;
+
+                      return ListView.separated(
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            String str = listCompareWord[index]["Bugis_Umum"];
+                            String doubleWord = '';
+
+                            for (int i = 0; i < str.length - 1; i++) {
+                              if (str[i] == str[i + 1]) {
+                                doubleWord = str[i] + str[i + 1];
+                                break;
+                              }
+                            }
+
+                            String firstWordBugis = listCompareWord[index]
+                                    ["Bugis_Umum"]
+                                .substring(0, 1);
+                            String secondWordBugis = listCompareWord[index]
+                                    ["Bugis_Umum"]
+                                .replaceAll("nca", "C")
+                                .replaceAll("nci", "Ci")
+                                .replaceAll("ncu", "Cu")
+                                .replaceAll("nce", "Ce")
+                                .replaceAll("nco", "Co")
+                                .replaceAll("nga", "G")
+                                .replaceAll("ngi", "Gi")
+                                .replaceAll("ngu", "u")
+                                .replaceAll("nge", "Ge")
+                                .replaceAll("ngo", "Go")
+                                .replaceAll("nra", "R")
+                                .replaceAll("nri", "Ri")
+                                .replaceAll("nru", "Ru")
+                                .replaceAll("nre", "Re")
+                                .replaceAll("nro", "Ro")
+                                .replaceAll("mpa", "P")
+                                .replaceAll("mpi", "Pi")
+                                .replaceAll("mpu", "Pu")
+                                .replaceAll("mpe", "Pe")
+                                .replaceAll("mpo", "Po")
+                                .replaceAll("ngka", "K")
+                                .replaceAll("ngki", "Ki")
+                                .replaceAll("ngku", "Ku")
+                                .replaceAll("ngke", "Ke")
+                                .replaceAll("ngko", "Ko")
+                                .replaceAll("nya", "N")
+                                .replaceAll("nyi", "Ni")
+                                .replaceAll("nyu", "Nu")
+                                .replaceAll("nye", "Ne")
+                                .replaceAll("nyo", "No")
+                                .substring(1)
+                                .replaceAll(
+                                    RegExp("(?<![aeiou])[aA](?![eaiou])"), "")
+                                .replaceAll("ng", "");
+
+                            String combineWordBugis =
+                                firstWordBugis + secondWordBugis;
+
+                            return CardItemListPerbandingan(
+                                indo: listCompareWord[index]["Indonesia"],
+                                bugisUmum: listCompareWord[index]["Bugis_Umum"],
+                                bugisPinrang: listCompareWord[index]
+                                    ["Bugis_Pinrang"],
+                                lontara: doubleWord == ""
+                                    ? combineWordBugis.toLowerCase()
+                                    : combineWordBugis
+                                        .replaceAll(doubleWord, doubleWord[0])
+                                        .toLowerCase());
+                          },
+                          separatorBuilder: (context, index) => const SizedBox(
                                 height: 8,
                               ),
-                              CardItemListPerbandingan(listComparisson)
-                            ],
-                          );
-                        }).toList(),
-                      ),
-                    );
+                          itemCount: listCompareWord.length);
+                    } else {
+                      return const Center(
+                        child: Text("Data Kosong !"),
+                      );
+                    }
                   } else {
                     return const Center(
                       child: Text("Ada kesalahan"),

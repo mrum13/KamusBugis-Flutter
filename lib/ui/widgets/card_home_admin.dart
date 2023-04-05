@@ -38,11 +38,11 @@ class CardHomeAdmin extends StatelessWidget {
         }
 
         if (index == 0) {
-          context.read<ListWordCubit>().getListWordIndoBugis();
+          // context.read<ListWordCubit>().getListWordIndoBugis();
         } else if (index == 1) {
-          context.read<ListComparissonCubit>().getListComparisson();
+          // context.read<ListComparissonCubit>().getListComparisson();
         } else if (index == 2) {
-          context.read<ListSentenceCubit>().getListSentence();
+          // context.read<ListSentenceCubit>().getListSentence();
         }
       },
       child: Container(

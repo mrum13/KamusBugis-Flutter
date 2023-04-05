@@ -28,7 +28,7 @@ class TambahKataAdminPage extends StatelessWidget {
                         onTap: () {
                           Navigator.pushNamed(context, "list-kata-admin");
                           context.read<TabDaftarKataCubit>().setTab(0);
-                          context.read<ListWordCubit>().getListWordIndoBugis();
+                          // context.read<ListWordCubit>().getListWordIndoBugis();
                         },
                         child: Image.asset(
                           "assets/icon_arrow_back.png",

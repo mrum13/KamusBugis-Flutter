@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:kamus_bugis/cubit/check_list_word_local_cubit.dart';
 import 'package:kamus_bugis/cubit/list_word_cubit.dart';
+import 'package:kamus_bugis/main.dart';
 import 'package:kamus_bugis/shared/themes.dart';
 import 'package:kamus_bugis/ui/widgets/card_item_list_kata_search_bugis.dart';
 import 'package:kamus_bugis/ui/widgets/card_item_list_kata_search_indo.dart';
@@ -82,9 +84,15 @@ class _SearchPageState extends State<SearchPage> {
                 setState(() {
                   dropdownvalue = newValue!;
                   if (dropdownvalue == "Bahasa Indonesia") {
-                    context.read<ListWordCubit>().getListWordIndoBugis();
+                    // context.read<ListWordCubit>().getListWordIndoBugis();
+                    context
+                        .read<CheckListWordLocalCubit>()
+                        .checkListWordIndoLocal();
                   } else {
-                    context.read<ListWordCubit>().getListWordBugisIndo();
+                    // context.read<ListWordCubit>().getListWordBugisIndo();
+                    context
+                        .read<CheckListWordLocalCubit>()
+                        .checkListWordBugisLocal();
                   }
                 });
               },
@@ -132,18 +140,17 @@ class _SearchPageState extends State<SearchPage> {
             const SizedBox(
               height: 24,
             ),
-            BlocBuilder<ListWordCubit, ListWordState>(
+            BlocBuilder<CheckListWordLocalCubit, CheckListWordLocalState>(
               builder: (context, state) {
-                if (state is ListWordLoading) {
+                if (state is CheckListWordLocalLoading) {
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
-                } else if (state is ListWordFailed) {
+                } else if (state is CheckListWordLocalFailed) {
                   return Center(
                     child: Text(state.error),
                   );
-                } else if (state is ListWordIndoSuccess) {
-                  print("total kata indo = ${state.listWordModel.length}");
+                } else if (state is CheckListWordIndoLocalSuccess) {
                   //binnary search function
                   int binarySearch(List arr, String x) {
                     int l = 0, r = arr.length - 1;
@@ -170,9 +177,14 @@ class _SearchPageState extends State<SearchPage> {
                     return const SizedBox();
                   } else {
                     String valueString = textSearch;
+
+                    List listWordIndo = [];
+                    var myMap = listWordDataBox.toMap().values.toList();
+                    listWordIndo = myMap;
+
                     List listIndo =
-                        state.listWordModel.map((e) => e["Indonesia"]).toList();
-                    List listIndoBugis = state.listWordModel
+                        listWordIndo.map((e) => e["Indonesia"]).toList();
+                    List listIndoBugis = listWordIndo
                         .map((e) => "${e["Indonesia"]} |${e["Bugis"]}")
                         .toList();
 
@@ -197,8 +209,7 @@ class _SearchPageState extends State<SearchPage> {
                       );
                     }
                   }
-                } else if (state is ListWordBugisSuccess) {
-                  print("List kata bugis = ${state.listWordModel.asMap()}");
+                } else if (state is CheckListWordBugisLocalSuccess) {
                   //binnary search function
                   int binarySearch(List arr, String x) {
                     int l = 0, r = arr.length - 1;
@@ -224,10 +235,14 @@ class _SearchPageState extends State<SearchPage> {
                   if (textSearch == "") {
                     return const SizedBox();
                   } else {
+                    List listWordBugis = [];
+                    var myMap = listWordDataBox.toMap().values.toList();
+                    listWordBugis = myMap;
+
                     String valueString = textSearch;
                     List listBugis =
-                        state.listWordModel.map((e) => e["Bugis"]).toList();
-                    List listBugisIndo = state.listWordModel
+                        listWordBugis.map((e) => e["Bugis"]).toList();
+                    List listBugisIndo = listWordBugis
                         .map((e) => "${e["Bugis"]} |${e["Indonesia"]}")
                         .toList();
 

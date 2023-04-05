@@ -12,7 +12,7 @@ class ListWordInitial extends ListWordState {}
 class ListWordLoading extends ListWordState {}
 
 class ListWordIndoSuccess extends ListWordState {
-  final List listWordModel;
+  final bool listWordModel;
 
   ListWordIndoSuccess(this.listWordModel);
 
@@ -22,7 +22,7 @@ class ListWordIndoSuccess extends ListWordState {
 }
 
 class ListWordBugisSuccess extends ListWordState {
-  final List listWordModel;
+  final bool listWordModel;
 
   ListWordBugisSuccess(this.listWordModel);
 

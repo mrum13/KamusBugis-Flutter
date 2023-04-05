@@ -12,13 +12,13 @@ class ListSentenceInitial extends ListSentenceState {}
 class ListSentenceLoading extends ListSentenceState {}
 
 class ListSentenceSuccess extends ListSentenceState {
-  final List<ListSentenceModel> listSentence;
+  final bool status;
 
-  ListSentenceSuccess(this.listSentence);
+  ListSentenceSuccess(this.status);
 
   @override
   // TODO: implement props
-  List<Object> get props => [listSentence];
+  List<Object> get props => [status];
 }
 
 class ListSentenceFailed extends ListSentenceState {

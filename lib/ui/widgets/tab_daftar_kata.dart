@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kamus_bugis/cubit/check_list_word_local_cubit.dart';
 import 'package:kamus_bugis/cubit/list_word_cubit.dart';
 import 'package:kamus_bugis/cubit/tab_daftar_kata_cubit.dart';
 import 'package:kamus_bugis/cubit/tab_daftar_kata_second_cubit.dart';
@@ -21,8 +22,8 @@ class TabDaftarKata extends StatelessWidget {
       onTap: () {
         context.read<TabDaftarKataCubit>().setTab(index);
         index == 0
-            ? context.read<ListWordCubit>().getListWordIndoBugis()
-            : context.read<ListWordCubit>().getListWordBugisIndo();
+            ? context.read<CheckListWordLocalCubit>().checkListWordIndoLocal()
+            : context.read<CheckListWordLocalCubit>().checkListWordBugisLocal();
         // ? context.read<TabDaftarKataSecondCubit>().setPage(false)
         // : context.read<TabDaftarKataSecondCubit>().setPage(true);
       },

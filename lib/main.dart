@@ -2,11 +2,15 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kamus_bugis/cubit/auth_admin_cubit.dart';
+import 'package:kamus_bugis/cubit/check_compare_word_local_cubit.dart';
+import 'package:kamus_bugis/cubit/check_list_word_local_cubit.dart';
+import 'package:kamus_bugis/cubit/check_sentence_local_cubit.dart';
 import 'package:kamus_bugis/cubit/list_comparisson_cubit.dart';
 import 'package:kamus_bugis/cubit/list_sentence_cubit.dart';
 import 'package:kamus_bugis/cubit/list_word_cubit.dart';
 import 'package:kamus_bugis/cubit/tab_daftar_kata_cubit.dart';
 import 'package:kamus_bugis/cubit/tab_daftar_kata_second_cubit.dart';
+import 'package:kamus_bugis/models/list_sentence.dart';
 import 'package:kamus_bugis/ui/pages/admin_pages/home_admin_page.dart';
 import 'package:kamus_bugis/ui/pages/admin_pages/list_kalimat_admin_page.dart';
 import 'package:kamus_bugis/ui/pages/admin_pages/list_kata_admin_page.dart';
@@ -23,12 +27,23 @@ import 'package:kamus_bugis/ui/pages/perbandingan_kata_page.dart';
 import 'package:kamus_bugis/ui/pages/search_page.dart';
 import 'package:kamus_bugis/ui/pages/splash_page.dart';
 import 'firebase_options.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+
+late Box sentenceDataBox;
+late Box compareWordDataBox;
+late Box listWordDataBox;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  await Hive.initFlutter();
+  Hive.registerAdapter(ListSentenceAdapter());
+  sentenceDataBox = await Hive.openBox("sentenceDataBox");
+  compareWordDataBox = await Hive.openBox("compareWordDataBox");
+  listWordDataBox = await Hive.openBox("listWordDataBox");
 
   runApp(const MyApp());
 }
@@ -46,9 +61,12 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: ((context) => ListComparissonCubit())),
         BlocProvider(create: ((context) => AuthAdminCubit())),
         BlocProvider(create: ((context) => TabDaftarKataSecondCubit())),
+        BlocProvider(create: ((context) => CheckSentenceLocalCubit())),
+        BlocProvider(create: ((context) => CheckCompareWordLocalCubit())),
+        BlocProvider(create: ((context) => CheckListWordLocalCubit())),
       ],
       child: MaterialApp(
-        initialRoute: 'home',
+        initialRoute: '/',
         routes: {
           '/': (context) => const SplashPage(),
           'home': (context) => const HomePage(),

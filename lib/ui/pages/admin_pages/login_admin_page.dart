@@ -69,6 +69,43 @@ class LoginAdminPage extends StatelessWidget {
                     fontSize: 12, fontWeight: FontWeight.w400),
               ),
             ),
+            const SizedBox(
+              height: 24,
+            ),
+            BlocConsumer<ListWordCubit, ListWordState>(
+              listener: (context, state) {
+                // TODO: implement listener
+                if (state is ListWordBugisSuccess) {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      backgroundColor: Colors.green,
+                      content: Text("Data berhasil di Update")));
+                } else if (state is ListWordFailed) {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      backgroundColor: Colors.red,
+                      content: Text("Gagal update Data !")));
+                }
+              },
+              builder: (context, state) {
+                if (state is ListWordLoading) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                return GestureDetector(
+                  onTap: () {
+                    context.read<ListWordCubit>().getListWordBugisIndo();
+                    context.read<ListWordCubit>().getListWordIndoBugis();
+                    context.read<ListSentenceCubit>().getListSentence();
+                    context.read<ListComparissonCubit>().getListComparisson();
+                  },
+                  child: Text(
+                    "Update Data Kata",
+                    style: blackTextStyle.copyWith(
+                        fontSize: 12, fontWeight: FontWeight.w400),
+                  ),
+                );
+              },
+            ),
             const Expanded(child: const SizedBox()),
             BlocConsumer<AuthAdminCubit, AuthAdminState>(
               listener: (context, state) {
