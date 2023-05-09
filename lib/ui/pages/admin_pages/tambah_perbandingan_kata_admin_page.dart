@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kamus_bugis/cubit/list_comparisson_cubit.dart';
 import 'package:kamus_bugis/shared/themes.dart';
+import 'package:kamus_bugis/ui/widgets/dialog_failed_add_data.dart';
+import 'package:kamus_bugis/ui/widgets/dialog_loading_add_data.dart';
+import 'package:kamus_bugis/ui/widgets/dialog_success_add_data.dart';
 import 'package:kamus_bugis/ui/widgets/form_input_with_title.dart';
 import 'package:kamus_bugis/ui/widgets/primary_button.dart';
 
@@ -73,45 +76,51 @@ class TambahPerbandinganKataAdminPage extends StatelessWidget {
                       hint: "Masukkan kata Bahasa Bugis Umum",
                       textInputType: TextInputType.text),
                   Expanded(child: const SizedBox()),
-                  BlocConsumer<ListComparissonCubit, ListComparissonState>(
-                    listener: (context, state) {
-                      if (state is SetComparissonFailed) {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            backgroundColor: Colors.red,
-                            content: Text(state.error)));
-                      } else if (state is SetComparissonSuccess) {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            backgroundColor: Colors.green,
-                            content: Text(state.message)));
-                      }
-                    },
-                    builder: (context, state) {
-                      if (state is SetComparissonLoading) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-                      return PrimaryButton(
-                          title: "Tambah Perbandingan Kata",
-                          onTap: () {
-                            if (indoController.text == '' &&
-                                bugisUmumController.text == '' &&
-                                bugisPinrangController.text == '') {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      backgroundColor: Colors.red,
-                                      content: Text("Mohon lengkapi form !")));
-                            } else {
-                              context
-                                  .read<ListComparissonCubit>()
-                                  .setComparisson(
-                                      bugisPinrang: bugisPinrangController.text,
-                                      bugisUmum: bugisUmumController.text,
-                                      indo: indoController.text);
-                            }
-                          });
-                    },
-                  )
+                  PrimaryButton(
+                      title: "Tambah Perbandingan Kata",
+                      onTap: () {
+                        if (indoController.text == '' &&
+                            bugisUmumController.text == '' &&
+                            bugisPinrangController.text == '') {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  backgroundColor: Colors.red,
+                                  content: Text("Mohon lengkapi form !")));
+                        } else {
+                          context.read<ListComparissonCubit>().setComparisson(
+                              bugisPinrang: bugisPinrangController.text,
+                              bugisUmum: bugisUmumController.text,
+                              indo: indoController.text);
+
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return Dialog(
+                                insetPadding: const EdgeInsets.all(10),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(16)),
+                                child: BlocBuilder<ListComparissonCubit,
+                                    ListComparissonState>(
+                                  builder: (context, state) {
+                                    if (state is SetComparissonSuccess) {
+                                      return DialogSuccessAddData(
+                                        kata: "Perbandingan Kata",
+                                      );
+                                    } else if (state is SetComparissonFailed) {
+                                      return DialogFailedAddData(
+                                          kata: "Perbandingan Kata");
+                                    } else if (state is SetComparissonLoading) {
+                                      return DialogLoadingAddData();
+                                    } else {
+                                      return DialogFailedAddData(kata: "");
+                                    }
+                                  },
+                                ),
+                              );
+                            },
+                          );
+                        }
+                      })
                 ]))));
   }
 }

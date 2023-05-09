@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kamus_bugis/cubit/list_sentence_cubit.dart';
 import 'package:kamus_bugis/shared/themes.dart';
+import 'package:kamus_bugis/ui/widgets/dialog_failed_add_data.dart';
+import 'package:kamus_bugis/ui/widgets/dialog_loading_add_data.dart';
+import 'package:kamus_bugis/ui/widgets/dialog_success_add_data.dart';
 import 'package:kamus_bugis/ui/widgets/form_input_with_title.dart';
 import 'package:kamus_bugis/ui/widgets/primary_button.dart';
 
@@ -61,41 +64,47 @@ class TambahKalimatAdminPage extends StatelessWidget {
                       hint: "Masukkan kalimat Bahasa Bugis",
                       textInputType: TextInputType.text),
                   Expanded(child: const SizedBox()),
-                  BlocConsumer<ListSentenceCubit, ListSentenceState>(
-                    listener: (context, state) {
-                      if (state is SetSentenceFailed) {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            backgroundColor: Colors.red,
-                            content: Text(state.error)));
-                      } else if (state is SetSentenceSuccess) {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            backgroundColor: Colors.green,
-                            content: Text(state.message)));
-                      }
-                    },
-                    builder: (context, state) {
-                      if (state is SetSentenceLoading) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-                      return PrimaryButton(
-                          title: "Tambah Kalimat",
-                          onTap: () {
-                            if (indoController.text == '' &&
-                                bugisController.text == '') {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                      backgroundColor: Colors.red,
-                                      content: Text("Mohon lengkapi form !")));
-                            } else {
-                              context.read<ListSentenceCubit>().setSentence(
-                                  bugis: bugisController.text,
-                                  indo: indoController.text);
-                            }
-                          });
-                    },
-                  )
+                  PrimaryButton(
+                      title: "Tambah Kalimat",
+                      onTap: () {
+                        if (indoController.text == '' &&
+                            bugisController.text == '') {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              backgroundColor: Colors.red,
+                              content: Text("Mohon lengkapi form !")));
+                        } else {
+                          context.read<ListSentenceCubit>().setSentence(
+                              bugis: bugisController.text,
+                              indo: indoController.text);
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return Dialog(
+                                insetPadding: const EdgeInsets.all(10),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(16)),
+                                child: BlocBuilder<ListSentenceCubit,
+                                    ListSentenceState>(
+                                  builder: (context, state) {
+                                    if (state is SetSentenceSuccess) {
+                                      return DialogSuccessAddData(
+                                        kata: "Kalimat",
+                                      );
+                                    } else if (state is SetSentenceFailed) {
+                                      return DialogFailedAddData(
+                                          kata: "Kalimat");
+                                    } else if (state is SetSentenceLoading) {
+                                      return DialogLoadingAddData();
+                                    } else {
+                                      return DialogFailedAddData(kata: "");
+                                    }
+                                  },
+                                ),
+                              );
+                            },
+                          );
+                        }
+                      })
                 ]))));
   }
 }

@@ -157,6 +157,7 @@ class _SplashPageState extends State<SplashPage> {
                             },
                             builder: (context, state) {
                               if (state is ListSentenceFailed) {
+                                print(state.error);
                                 return Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
